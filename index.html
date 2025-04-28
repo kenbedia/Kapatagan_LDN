@@ -197,8 +197,51 @@
     a:hover {
       text-decoration: underline;
     }
+
+   
+    @media (max-width: 768px) {
+      .container {
+        width: 90%;
+        min-height: auto;
+        margin: 40px auto;
+      }
+
+      .form-container, 
+      .overlay-container {
+        width: 100%;
+        position: relative;
+        transform: none !important;
+      }
+
+      .sign-in-container, 
+      .sign-up-container, 
+      .overlay {
+        width: 100%;
+        left: 0;
+      }
+
+      .overlay-panel {
+        width: 100%;
+        padding: 20px;
+      }
+
+      .container.right-panel-active .sign-in-container,
+      .container.right-panel-active .sign-up-container {
+        transform: none;
+      }
+
+      .overlay {
+        transform: none !important;
+        left: 0;
+      }
+
+      .overlay-left, .overlay-right {
+        transform: none;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div class="container" id="container">
     <div class="form-container sign-up-container">
@@ -218,7 +261,6 @@
       </form>
     </div>
 
-    
     <div class="form-container sign-in-container">
       <form onsubmit="return handleLogin(event)">
         <img src="logo.png" class="form-logo" alt="Logo" />
@@ -236,7 +278,6 @@
       </form>
     </div>
 
-    
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
