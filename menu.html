@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>KAPATAGAN</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      overflow-x: hidden;
+      background-image: url(falls.avif);
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+    }
+
+    .menu-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 35px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #007bff;
+      border-radius: 8px;
+      padding: 5px;
+      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 80%;
+      height: 4px;
+      background: white;
+      border-radius: 2px;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
+
+    .side-menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      transition: left 0.4s ease;
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .side-menu.active {
+      left: 0;
+    }
+
+    .side-menu .top-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .side-menu .logo-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .side-menu .logo-section img {
+      height: 60px;
+      margin-right: 10px;
+    }
+
+    .side-menu .logo-text {
+      color: white;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .side-menu ul {
+      list-style: none;
+      padding-top: 20px;
+    }
+
+    .side-menu ul li {
+      margin-bottom: 15px;
+    }
+
+    .side-menu ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      display: block;
+      transition: 0.3s;
+    }
+
+    .side-menu ul li a:hover {
+      color: #00aaff;
+      transform: scale(1.05);
+    }
+
+    .main-content {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      color: white;
+      z-index: 1;
+      padding: 0 20px;
+      position: relative;
+    }
+
+    .main-content h2 {
+      color: #00aaff;
+      font-size: 24px;
+    }
+
+    .main-content h1 {
+      font-size: 48px;
+      margin: 10px 0;
+      color: #d8d2d2;
+    }
+
+    .main-content p {
+      max-width: 600px;
+      color: #ddd;
+    }
+
+    
+    #logoutBtn {
+      background-color: #6dc996;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;  
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    #logoutBtn.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    
+    #logoutBtn:hover {
+      background-color: #6dc996;
+      transform: scale(1.05);
+    }
+
+    /* Click effect */
+    #logoutBtn:active {
+      transform: scale(0.95);
+    }
+
+    @media (max-width: 768px) {
+      .main-content h1 {
+        font-size: 36px;
+      }
+
+      .main-content h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="menu-toggle" id="menuToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <div class="side-menu" id="sideMenu">
+    <div class="top-content">
+      <div class="logo-section">
+        <img src="logo.png" alt="Logo" />
+        <div class="logo-text">
+          <p>Municipality of</p>
+          <p>Kapatagan</p>
+        </div>
+      </div>
+      <ul>
+        <li><a href="menu.html">🏠 Home</a></li>
+        <li><a href="about.html">ℹ️ About</a></li>
+        <li><a href="vision and mission.html">🎯 Vision and Mission</a></li>
+        <li><a href="municipal.html">👥 Municipal Official</a></li>
+        <li><a href="national.html">🏢 National Line Agencies</a></li>
+        <li><a href="barangay directory.html">🏘️ Barangay Directory</a></li>
+        <li><a href="cultural.html">🏛️ Cultural Property</a></li>
+        <li><a href="Tourism.html">🌄 Tourism</a></li>
+        <li><a href="contact.html">📞 Contact Us</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="main-content">
+    <h2>Hello, <span id="greeting">User</span> Welcome To</h2>
+    <h1>Municipality of Kapatagan</h1>
+    <p>Lalawigan ng Lanao Del Norte, Philippines.</p>
+    <br><br>
+    <button id="logoutBtn" class="show">Logout</button>
+  </div>
+
+  <script>
+    const userName = localStorage.getItem("userName") || "User";
+    document.getElementById("greeting").innerText = userName;
+
+    
+    const logoutBtn = document.getElementById("logoutBtn");
+    if (userName !== "User") {
+      logoutBtn.classList.add("show");
+      logoutBtn.addEventListener("click", function(e) {
+        e.preventDefault();
+        localStorage.removeItem("userName");
+        window.location.href = 'index.html';  
+      });
+    }
+
+    const menuToggle = document.getElementById('menuToggle');
+    const sideMenu = document.getElementById('sideMenu');
+    menuToggle.addEventListener('click', () => {
+      sideMenu.classList.toggle('active');
+    });
+  </script>
+
+</body>
+</html>
