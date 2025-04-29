@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cultural Property</title>
   <style>
     * {
@@ -11,9 +13,11 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background: url(background.png) no-repeat center center/cover;
+      background: url('/api/placeholder/1920/1080') no-repeat center center fixed;
+      background-size: cover;
       overflow-x: hidden;
       color: white;
+      min-height: 100vh;
     }
 
     .hover-zone {
@@ -34,11 +38,12 @@
       background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(10px);
       padding: 30px 20px;
-      transition: left 0.4s ease;
+      transition: all 0.4s ease;
       z-index: 3;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
+      overflow-y: auto;
     }
 
     .side-menu .logo-section {
@@ -60,10 +65,11 @@
 
     .side-menu ul {
       list-style: none;
+      margin-bottom: 0;
     }
 
     .side-menu ul li {
-      margin-bottom: 15px;
+      margin-bottom: 5px;
     }
 
     .side-menu ul li a {
@@ -73,29 +79,17 @@
       font-weight: bold;
       display: block;
       transition: 0.3s;
+      padding: 4px 12px;
+      border-radius: 5px;
     }
 
     .side-menu ul li a:hover {
       color: #00aaff;
-      transform: scale(1.05);
+      transform: translateX(5px);
+      background: rgba(255, 255, 255, 0.1);
     }
 
-    .side-menu #logoutBtn {
-      align-self: center;
-      color: white;
-      background: #070a0c62;
-      padding: 10px 20px;
-      text-align: center;
-      border-radius: 5px;
-      font-size: 18px;
-      width: 150px;
-      transition: 0.3s;
-      text-decoration: none;
-    }
 
-    .side-menu #logoutBtn:hover {
-      background: #03855a80;
-    }
 
     .main-content {
       padding: 100px 20px 40px 20px;
@@ -103,23 +97,28 @@
       flex-direction: column;
       align-items: center;
       gap: 30px;
+      transition: margin-left 0.4s ease;
     }
 
     .main-content img {
-      width: 90%;
+      width: 100%;
       max-width: 1000px;
       height: auto;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.6);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.6);
+      transition: transform 0.3s ease;
     }
 
-     
+    .main-content img:hover {
+      transform: scale(1.02);
+    }
+
     .hamburger {
       position: fixed;
       top: 20px;
       right: 20px;
       width: 40px;
-      height: 35px;
+      height: 40px;
       cursor: pointer;
       z-index: 5;
       display: flex;
@@ -130,43 +129,95 @@
       border-radius: 8px;
       padding: 5px;
       box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
     }
 
-    .hamburger:focus {
-      outline: none;
+    .hamburger:hover {
+      background: #0056b3;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 2;
+      display: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .active {
+      display: block;
+    }
+
+    
+    @media screen and (min-width: 992px) {
+      .side-menu:hover {
+        left: 0;
+      }
+      
+      body.menu-expanded .main-content {
+        margin-left: 250px;
+      }
+    }
+
+    @media screen and (max-width: 991px) {
+      .hover-zone {
+        display: none;
+      }
+      
+      body.menu-expanded .main-content {
+        margin-left: 0;
+      }
     }
 
     @media screen and (max-width: 768px) {
       .side-menu {
-        width: 200px;
+        width: 230px;
+        left: -230px;
       }
 
       .main-content {
-        padding: 80px 10px 40px 10px;
+        padding: 80px 15px 30px 15px;
+      }
+      
+      .main-content img {
+        max-width: 100%;
       }
     }
 
     @media screen and (max-width: 480px) {
       .side-menu {
-        width: 180px;
+        width: 80%;
+        left: -100%;
       }
 
       .main-content {
-        padding: 60px 10px 40px 10px;
+        padding: 70px 10px 20px 10px;
+        gap: 20px;
       }
 
       .hamburger {
         top: 15px;
         right: 15px;
-        font-size: 18px;
+        width: 35px;
+        height: 35px;
+      }
+      
+      .side-menu .logo-section img {
+        height: 50px;
       }
     }
   </style>
 </head>
 <body>
   <div class="hamburger" onclick="toggleMenu()">☰</div>
-  <div class="hover-zone"></div>
-  <div class="side-menu">
+  <div class="hover-zone" onmouseover="showMenu()" onmouseout="hideMenuIfNotActive()"></div>
+  <div class="overlay" onclick="toggleMenu()"></div>
+  
+  <div class="side-menu" id="sideMenu">
     <div class="top-content">
       <div class="logo-section">
         <img src="logo.png" alt="Logo" />
@@ -187,7 +238,9 @@
         <li><a href="contact.html">📞 Contact Us</a></li>
       </ul>
     </div>
+
   </div>
+  
   <div class="main-content">
     <img src="1.png" alt="Cultural Property 1">
     <img src="2.png" alt="Cultural Property 2">
@@ -202,23 +255,60 @@
   </div>
 
   <script>
-    const userName = localStorage.getItem("userName") || "User";
-    document.getElementById("logoutBtn").addEventListener("click", function(e) {
-      e.preventDefault();
-      localStorage.removeItem("userName");
-      window.location.href = 'index.html';
-    });
+     
+    let menuActive = false;
+    const sideMenu = document.getElementById('sideMenu');
+    const overlay = document.querySelector('.overlay');
 
+     
+    const userName = localStorage.getItem("userName") || "User";
+    
     
     function toggleMenu() {
-      const sideMenu = document.querySelector('.side-menu');
-      const currentLeft = sideMenu.style.left;
-      if (currentLeft === '0px') {
-        sideMenu.style.left = '-250px';
-      } else {
+      menuActive = !menuActive;
+      
+      if (menuActive) {
         sideMenu.style.left = '0';
+        overlay.classList.add('active');
+        document.body.classList.add('menu-expanded');
+      } else {
+        sideMenu.style.left = window.innerWidth <= 480 ? '-100%' : '-250px';
+        overlay.classList.remove('active');
+        document.body.classList.remove('menu-expanded');
       }
     }
+    
+    
+    function showMenu() {
+      if (window.innerWidth >= 992) {
+        sideMenu.style.left = '0';
+        document.body.classList.add('menu-expanded');
+      }
+    }
+    
+     
+    function hideMenuIfNotActive() {
+      if (!menuActive && window.innerWidth >= 992) {
+        sideMenu.style.left = '-250px';
+        document.body.classList.remove('menu-expanded');
+      }
+    }
+    
+     
+    window.addEventListener('resize', function() {
+      if (menuActive) {
+        sideMenu.style.left = '0';
+      } else {
+        sideMenu.style.left = window.innerWidth <= 480 ? '-100%' : '-250px';
+      }
+    });
+    
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && menuActive) {
+        toggleMenu();
+      }
+    });
   </script>
 </body>
 </html>
