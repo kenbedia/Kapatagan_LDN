@@ -114,28 +114,52 @@
     }
 
     .hamburger {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      z-index: 5;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background: #007bff;
-      border-radius: 8px;
-      padding: 5px;
-      box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s ease;
-    }
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #007bff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+}
 
-    .hamburger:hover {
-      background: #0056b3;
-    }
+.hamburger:hover {
+  background: #0056b3;
+}
 
+.hamburger div {
+  display: block;
+  width: 80%;
+  height: 3px;
+  background: white;
+  border-radius: 2px;
+  margin: 3px 0;
+  transition: 0.3s;
+}
+
+.hamburger.active div:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active div:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active div:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+.side-menu.open {
+  left: 0;
+}
     .overlay {
       position: fixed;
       top: 0;
@@ -213,9 +237,11 @@
   </style>
 </head>
 <body>
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
-  <div class="hover-zone" onmouseover="showMenu()" onmouseout="hideMenuIfNotActive()"></div>
-  <div class="overlay" onclick="toggleMenu()"></div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
   
   <div class="side-menu" id="sideMenu">
     <div class="top-content">
@@ -259,56 +285,27 @@
     let menuActive = false;
     const sideMenu = document.getElementById('sideMenu');
     const overlay = document.querySelector('.overlay');
-
-     
     const userName = localStorage.getItem("userName") || "User";
     
+  function toggleMenu() {
+    const menu = document.querySelector('.side-menu');
+    const hamburger = document.querySelector('.hamburger');
     
-    function toggleMenu() {
-      menuActive = !menuActive;
-      
-      if (menuActive) {
-        sideMenu.style.left = '0';
-        overlay.classList.add('active');
-        document.body.classList.add('menu-expanded');
-      } else {
-        sideMenu.style.left = window.innerWidth <= 480 ? '-100%' : '-250px';
-        overlay.classList.remove('active');
-        document.body.classList.remove('menu-expanded');
-      }
+    menu.classList.toggle('open');
+    hamburger.classList.toggle('active');
+  }
+  document.addEventListener('click', function(event) {
+    const menu = document.querySelector('.side-menu');
+    const hamburger = document.querySelector('.hamburger');
+    const isClickInsideMenu = menu.contains(event.target);
+    const isClickOnHamburger = hamburger.contains(event.target);
+
+    if (!isClickInsideMenu && !isClickOnHamburger) {
+      menu.classList.remove('open');
+      hamburger.classList.remove('active');
     }
-    
-    
-    function showMenu() {
-      if (window.innerWidth >= 992) {
-        sideMenu.style.left = '0';
-        document.body.classList.add('menu-expanded');
-      }
-    }
-    
-     
-    function hideMenuIfNotActive() {
-      if (!menuActive && window.innerWidth >= 992) {
-        sideMenu.style.left = '-250px';
-        document.body.classList.remove('menu-expanded');
-      }
-    }
-    
-     
-    window.addEventListener('resize', function() {
-      if (menuActive) {
-        sideMenu.style.left = '0';
-      } else {
-        sideMenu.style.left = window.innerWidth <= 480 ? '-100%' : '-250px';
-      }
-    });
-    
-    
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && menuActive) {
-        toggleMenu();
-      }
-    });
-  </script>
+  });
+</script>
+
 </body>
 </html>
