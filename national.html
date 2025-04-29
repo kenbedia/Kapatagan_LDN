@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <title>National Line Agencies</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Important for responsiveness -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
       margin: 0;
@@ -12,59 +12,80 @@
 
     body {
       font-family: 'Arial', sans-serif;
-      background: url(municipality.jpg) no-repeat center center/cover;
-      overflow-x: hidden;
       color: white;
+      overflow-x: hidden;
+      background: url(municipality.jpg) no-repeat center center/cover;
+      position: relative;
     }
 
+    /* Background overlay animation */
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0,123,255,0.2), rgba(0,0,0,0.7));
+      z-index: 0;
+      animation: gradientShift 15s infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { background: linear-gradient(135deg, rgba(0,123,255,0.2), rgba(0,0,0,0.7)); }
+      50% { background: linear-gradient(135deg, rgba(75,0,130,0.2), rgba(0,0,0,0.7)); }
+      100% { background: linear-gradient(135deg, rgba(0,128,128,0.2), rgba(0,0,0,0.7)); }
+    }
+
+   
     .hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #007bff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.hamburger:hover {
-  background: #0056b3;
-}
+    .hamburger:hover {
+      background: #0056b3;
+    }
 
-.hamburger div {
-  display: block;
-  width: 80%;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  margin: 3px 0;
-  transition: 0.3s;
-}
+    .hamburger div {
+      display: block;
+      width: 80%;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
 
-.hamburger.active div:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
 
-.hamburger.active div:nth-child(2) {
-  opacity: 0;
-}
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
 
-.hamburger.active div:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-.side-menu.open {
-  left: 0;
-}
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
+    .side-menu.open {
+      left: 0;
+    }
 
     .side-menu {
       position: fixed;
@@ -121,6 +142,7 @@
       transform: scale(1.05);
     }
 
+    /* Enhanced main content with animation */
     .main-content {
       min-height: 100vh;
       display: flex;
@@ -130,8 +152,48 @@
       text-align: center;
       z-index: 1;
       padding: 20px;
+      position: relative;
     }
 
+   
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 40px;
+      position: relative;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    .page-title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #007bff, #00aaff);
+      animation: lineGrow 1.5s ease forwards 0.5s;
+    }
+
+    @keyframes lineGrow {
+      to { width: 70%; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Enhanced logo container with animation */
     .logo-container {
       display: grid;
       grid-template-columns: repeat(5, 1fr);  
@@ -141,44 +203,139 @@
       margin: 0 auto;
       justify-items: center;
       align-items: center;
+      perspective: 1000px;
     }
 
-    .logo-container img {
+    /* Logo item animation */
+    .logo-item {
+      width: 100%;
+      height: 180px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInStaggered 0.8s ease forwards;
+      transition: all 0.4s ease;
+    }
+
+    /* Staggered animation for logos */
+    @keyframes fadeInStaggered {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Logo hover effects */
+    .logo-item:hover {
+      transform: scale(1.1) translateY(-10px);
+      z-index: 2;
+    }
+
+    .logo-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .logo-item:hover::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    .logo-item img {
       width: 100%;
       max-width: 150px;
       height: 150px;
       object-fit: contain;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.3));
+      transition: all 0.4s ease;
     }
 
-     
+    .logo-item:hover img {
+      filter: drop-shadow(0 8px 20px rgba(0, 123, 255, 0.5));
+    }
+
+    /* Logo tooltip */
+    .logo-item .tooltip {
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%) scale(0);
+      background: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 12px;
+      opacity: 0;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+    }
+
+    .logo-item:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) scale(1);
+      bottom: -30px;
+    }
+
+    /* Floating animation for logos */
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    /* Pulse animation for logos */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    /* Responsive styles */
     @media (max-width: 992px) {
       .logo-container {
         grid-template-columns: repeat(3, 1fr);  
       }
+      .page-title {
+        font-size: 2rem;
+      }
     }
 
-     
     @media (max-width: 600px) {
       .logo-container {
         grid-template-columns: repeat(2, 1fr);  
       }
-      .logo-container img {
+      .logo-item img {
         max-width: 120px;
         height: 120px;
       }
+      .page-title {
+        font-size: 1.5rem;
+      }
     }
-
   </style>
 </head>
 
 <body>
-
+  <!-- Preserved hamburger menu -->
   <div class="hamburger" onclick="toggleMenu()">
     <div></div>
     <div></div>
     <div></div>
   </div>
   
+  <!-- Preserved side menu -->
   <div class="side-menu" id="sideMenu">
     <div class="top-content">
       <div class="logo-section">
@@ -202,43 +359,104 @@
     </div>
   </div>
 
+  <!-- Enhanced main content with animations -->
   <div class="main-content">
+    <h1 class="page-title">National Line Agencies</h1>
     <div class="logo-container">
-      <img src="AICS.png" alt="Department 1">
-      <img src="attorney.png" alt="Department 2">
-      <img src="BFP.png" alt="Department 3">
-      <img src="Bureau.png" alt="Department 4">
-      <img src="Commission.audit.png" alt="Department 5">
-      <img src="commission.electronics.png" alt="Department 6">
-      <img src="DILG.png" alt="Department 7">
-      <img src="dti.png" alt="Department 8">
-      <img src="NBI.png" alt="Department 9">
-      <img src="PNP.png" alt="Department 10">
-      <img src="sss.png" alt="Department 11">
-      <img src="dar.png" alt="Department 12">
-      <img src="phlpost.png" alt="Department 13">
+      <!-- Each logo now has animation classes and tooltips -->
+      <div class="logo-item" style="animation-delay: 0.1s">
+        <img src="AICS.png" alt="AICS">
+        <span class="tooltip">AICS</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.2s">
+        <img src="attorney.png" alt="Attorney">
+        <span class="tooltip">Public Attorney's Office</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.3s">
+        <img src="BFP.png" alt="BFP">
+        <span class="tooltip">Bureau of Fire Protection</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.4s">
+        <img src="Bureau.png" alt="Bureau">
+        <span class="tooltip">Bureau of Internal Revenue</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.5s">
+        <img src="Commission.audit.png" alt="Commission on Audit">
+        <span class="tooltip">Commission on Audit</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.6s">
+        <img src="commission.electronics.png" alt="COMELEC">
+        <span class="tooltip">Commission on Elections</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.7s">
+        <img src="DILG.png" alt="DILG">
+        <span class="tooltip">Department of Interior and Local Government</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.8s">
+        <img src="dti.png" alt="DTI">
+        <span class="tooltip">Department of Trade and Industry</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 0.9s">
+        <img src="NBI.png" alt="NBI">
+        <span class="tooltip">National Bureau of Investigation</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 1.0s">
+        <img src="PNP.png" alt="PNP">
+        <span class="tooltip">Philippine National Police</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 1.1s">
+        <img src="sss.png" alt="SSS">
+        <span class="tooltip">Social Security System</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 1.2s">
+        <img src="dar.png" alt="DAR">
+        <span class="tooltip">Department of Agrarian Reform</span>
+      </div>
+      <div class="logo-item" style="animation-delay: 1.3s">
+        <img src="phlpost.png" alt="PHLPost">
+        <span class="tooltip">Philippine Postal Corporation</span>
+      </div>
     </div>
   </div>
 
+   
   <script>   
-  function toggleMenu() {
-    const sideMenu = document.getElementById('sideMenu');
-    const hamburger = document.querySelector('.hamburger');
-    sideMenu.classList.toggle('open');  
-    hamburger.classList.toggle('active');
-  }
-  document.addEventListener('click', function(event) {
-    const sideMenu = document.getElementById('sideMenu');
-    const hamburger = document.querySelector('.hamburger');
-    const isClickInsideMenu = sideMenu.contains(event.target);
-    const isClickOnHamburger = hamburger.contains(event.target);
-
-    if (!isClickInsideMenu && !isClickOnHamburger && sideMenu.classList.contains('open')) {
-      sideMenu.classList.remove('open');
-      hamburger.classList.remove('active');
+    function toggleMenu() {
+      const sideMenu = document.getElementById('sideMenu');
+      const hamburger = document.querySelector('.hamburger');
+      sideMenu.classList.toggle('open');  
+      hamburger.classList.toggle('active');
     }
-  }); 
-  const userName = localStorage.getItem("userName") || "User";
+    
+    document.addEventListener('click', function(event) {
+      const sideMenu = document.getElementById('sideMenu');
+      const hamburger = document.querySelector('.hamburger');
+      const isClickInsideMenu = sideMenu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickOnHamburger && sideMenu.classList.contains('open')) {
+        sideMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    }); 
+    
+    const userName = localStorage.getItem("userName") || "User";
+    
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      // Apply random animations to each logo
+      const logoItems = document.querySelectorAll('.logo-item');
+      
+      logoItems.forEach((item, index) => {
+        // Apply different animations randomly
+        const animationTypes = ['float', 'pulse'];
+        const randomAnim = animationTypes[Math.floor(Math.random() * animationTypes.length)];
+        const randomDuration = (Math.random() * 2 + 3).toFixed(1); // Between 3-5s
+        const randomDelay = (Math.random() * 1).toFixed(1); // Between 0-1s
+        
+        item.style.animation = `fadeInStaggered 0.8s ease forwards ${index * 0.1}s, ${randomAnim} ${randomDuration}s ease-in-out infinite ${randomDelay}s`;
+      });
+    });
   </script>
 </body>
 </html>
