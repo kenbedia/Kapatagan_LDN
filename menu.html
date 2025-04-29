@@ -21,49 +21,49 @@
     }
 
     .hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #007bff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.hamburger:hover {
-  background: #0056b3;
-}
+    .hamburger:hover {
+      background: #0056b3;
+    }
 
-.hamburger div {
-  display: block;
-  width: 80%;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  margin: 3px 0;
-  transition: 0.3s;
-}
+    .hamburger div {
+      display: block;
+      width: 80%;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
 
-.hamburger.active div:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
 
-.hamburger.active div:nth-child(2) {
-  opacity: 0;
-}
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
 
-.hamburger.active div:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
     .side-menu {
       position: fixed;
@@ -146,46 +146,307 @@
     .main-content h2 {
       color: #00aaff;
       font-size: 24px;
+      opacity: 0;
+      transform: translateY(-30px);
+      animation: fadeInDown 1s forwards 0.3s;
+      text-shadow: 0 2px 5px rgba(0, 170, 255, 0.5);
     }
 
     .main-content h1 {
       font-size: 48px;
       margin: 10px 0;
       color: #d8d2d2;
+      opacity: 0;
+      transform: scale(0.8);
+      animation: scaleIn 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards 0.8s;
+      text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    .main-content h1::before {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #00aaff, transparent);
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      animation: lineExpand 1.5s forwards 1.8s;
     }
 
     .main-content p {
       max-width: 600px;
       color: #ddd;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s forwards 1.3s;
+      text-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    }
+    
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes scaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8) rotateX(20deg);
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) rotateX(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes lineExpand {
+      0% {
+        width: 0;
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        width: 80%;
+        opacity: 0.8;
+      }
     }
 
-    
     #logoutBtn {
       background-color: #6dc996;
       color: white;
       border: none;
-      padding: 10px 20px;
-      font-size: 16px;
-      border-radius: 5px;
+      padding: 12px 30px;
+      font-size: 18px;
+      border-radius: 50px;
       cursor: pointer;
-      transition: all 0.3s ease;  
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       opacity: 0;
       transform: translateY(20px);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 12px rgba(109, 201, 150, 0.3);
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    #logoutBtn::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s ease;
+    }
+
+    #logoutBtn:hover::before {
+      width: 300px;
+      height: 300px;
     }
 
     #logoutBtn.show {
       opacity: 1;
       transform: translateY(0);
     }
-
     
     #logoutBtn:hover {
-      background-color: #6dc996;
-      transform: scale(1.05);
+      background-color: #5ab082;
+      transform: translateY(-5px) scale(1.05);
+      box-shadow: 0 10px 20px rgba(109, 201, 150, 0.5);
     }
  
     #logoutBtn:active {
-      transform: scale(0.95);
+      transform: scale(0.95) translateY(0);
+      box-shadow: 0 3px 6px rgba(109, 201, 150, 0.2);
+    }
+
+    .logout-animation {
+      animation: logoutPulse 0.6s ease-out forwards, logoutSpin 0.8s ease-out forwards, logoutFade 1s ease-out forwards;
+    }
+
+    @keyframes logoutPulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(0); }
+    }
+
+    @keyframes logoutSpin {
+      0% { transform: rotate(0) scale(1); }
+      100% { transform: rotate(360deg) scale(0); }
+    }
+
+    @keyframes logoutFade {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0);
+      z-index: 10;
+      pointer-events: none;
+      transition: background 1s ease;
+    }
+
+    .overlay.active {
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    .logout-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      color: white;
+      font-size: 28px;
+      text-align: center;
+      z-index: 11;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .logout-message.active {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 12;
+    }
+
+    .particle {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background-color: #6dc996;
+      pointer-events: none;
+    }
+    
+    .sparkles {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+    
+    .sparkle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background-color: #fff;
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkleAnimation 3s ease-in-out infinite;
+    }
+    
+    @keyframes sparkleAnimation {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 0.8;
+        box-shadow: 0 0 8px 2px rgba(255, 255, 255, 0.8), 
+                    0 0 12px 4px rgba(0, 170, 255, 0.6);
+      }
+      100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+    
+   
+    .main-content::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(circle at center, rgba(0, 170, 255, 0.1) 0%, transparent 70%);
+      z-index: -1;
+      animation: pulseBackground 8s ease-in-out infinite;
+    }
+    
+    @keyframes pulseBackground {
+      0%, 100% {
+        opacity: 0.2;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 0.4;
+        transform: scale(1.2);
+      }
+    }
+    
+   
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+    
+    .welcome-text {
+      overflow: hidden;
+      white-space: nowrap;
+    }
+    
+    #greeting {
+      position: relative;
+      display: inline-block;
+      color: #6dc996;
+      font-weight: bold;
+      animation: glowText 2s ease-in-out infinite;
+    }
+    
+    @keyframes glowText {
+      0%, 100% {
+        text-shadow: 0 0 5px rgba(109, 201, 150, 0.5);
+      }
+      50% {
+        text-shadow: 0 0 20px rgba(109, 201, 150, 0.8),
+                     0 0 30px rgba(109, 201, 150, 0.5);
+      }
     }
 
     @media (max-width: 768px) {
@@ -230,50 +491,185 @@
     </div>
   </div>
 
+  <div class="overlay" id="overlay"></div>
+  <div class="logout-message" id="logoutMessage">Logging out... <br>Thank you for visiting!</div>
+  <div class="particles-container" id="particlesContainer"></div>
+
   <div class="main-content">
-    <h2>Hello, <span id="greeting">User</span> Welcome To</h2>
-    <h1>Municipality of Kapatagan</h1>
-    <p>Lalawigan ng Lanao Del Norte, Philippines.</p>
+    <h2 class="welcome-text">Hello, <span id="greeting">User</span> Welcome To</h2>
+    <h1 class="municipality-title">Municipality of Kapatagan</h1>
+    <p class="location-text">Lalawigan ng Lanao Del Norte, Philippines.</p>
     <br><br>
     <button id="logoutBtn" class="show">Logout</button>
+    
+    <div class="sparkles"></div>
   </div>
 
   <script>
-    const userName = localStorage.getItem("userName") || "User";
-    document.getElementById("greeting").innerText = userName;
+  
+    function createSparkles() {
+      const sparklesContainer = document.querySelector('.sparkles');
+      for (let i = 0; i < 50; i++) {
+        const sparkle = document.createElement('div');
+        sparkle.classList.add('sparkle');
+        sparkle.style.left = Math.random() * 100 + 'vw';
+        sparkle.style.top = Math.random() * 100 + 'vh';
+        sparkle.style.animationDelay = Math.random() * 3 + 's';
+        sparkle.style.animationDuration = Math.random() * 2 + 2 + 's';
+        const size = Math.random() * 6 + 2;
+        sparkle.style.width = size + 'px';
+        sparkle.style.height = size + 'px';
+        sparklesContainer.appendChild(sparkle);
+      }
+    }
 
     
+    function animateGreeting() {
+      const userName = localStorage.getItem("userName") || "User";
+      const greetingSpan = document.getElementById("greeting");
+      greetingSpan.innerText = '';
+      
+      const greetingText = userName;
+      let i = 0;
+      const interval = setInterval(() => {
+        if (i < greetingText.length) {
+          greetingSpan.textContent += greetingText.charAt(i);
+          i++;
+        } else {
+          clearInterval(interval);
+        }
+      }, 100);
+    }
+    
+    
+    window.addEventListener('load', function() {
+      setTimeout(createSparkles, 500);
+      setTimeout(animateGreeting, 500);
+    });
+    
+    const userName = localStorage.getItem("userName") || "User";
+
     const logoutBtn = document.getElementById("logoutBtn");
+    const overlay = document.getElementById("overlay");
+    const logoutMessage = document.getElementById("logoutMessage");
+    const particlesContainer = document.getElementById("particlesContainer");
+    
     if (userName !== "User") {
       logoutBtn.classList.add("show");
       logoutBtn.addEventListener("click", function(e) {
         e.preventDefault();
-        localStorage.removeItem("userName");
-        window.location.href = 'index.html';  
+        
+       
+        const circle = document.createElement("div");
+        const diameter = Math.max(logoutBtn.clientWidth, logoutBtn.clientHeight);
+        circle.style.width = circle.style.height = `${diameter}px`;
+        circle.style.left = `${e.clientX - logoutBtn.getBoundingClientRect().left - diameter/2}px`;
+        circle.style.top = `${e.clientY - logoutBtn.getBoundingClientRect().top - diameter/2}px`;
+        circle.classList.add("ripple");
+        
+       
+        logoutBtn.classList.add("logout-animation");
+        
+        
+        createParticles(logoutBtn);
+        
+       
+        setTimeout(() => {
+          overlay.classList.add("active");
+          logoutMessage.classList.add("active");
+        }, 300);
+        
+       
+        setTimeout(() => {
+          localStorage.removeItem("userName");
+          window.location.href = 'index.html';
+        }, 2000);
       });
     }
 
-    function toggleMenu() {
-  const sideMenu = document.getElementById('sideMenu');
-  const hamburger = document.querySelector('.hamburger');
-  
-  sideMenu.classList.toggle('active');
-  hamburger.classList.toggle('active');
-}
+    function createParticles(button) {
+      const btnRect = button.getBoundingClientRect();
+      const btnCenterX = btnRect.left + btnRect.width / 2;
+      const btnCenterY = btnRect.top + btnRect.height / 2;
+      
+      
+      for (let i = 0; i < 30; i++) {
+        const particle = document.createElement("div");
+        particle.classList.add("particle");
+        
+        
+        const angle = Math.random() * Math.PI * 2;
+        const distance = Math.random() * 20;
+        const x = btnCenterX + Math.cos(angle) * distance;
+        const y = btnCenterY + Math.sin(angle) * distance;
+        
+        particle.style.left = `${x}px`;
+        particle.style.top = `${y}px`;
+        
+       
+        const colors = ['#6dc996', '#4CAF50', '#8BC34A', '#CDDC39', '#00aaff'];
+        particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        
+       
+        const size = Math.random() * 10 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Add to container
+        particlesContainer.appendChild(particle);
+        
+        // Animate the particle
+        const speedX = (Math.random() - 0.5) * 15;
+        const speedY = (Math.random() - 0.5) * 15;
+        const duration = Math.random() * 1000 + 500;
+        
+      
+        let startTime = null;
+        
+        function animateParticle(timestamp) {
+          if (!startTime) startTime = timestamp;
+          const elapsed = timestamp - startTime;
+          
+          if (elapsed < duration) {
+            const progress = elapsed / duration;
+            const posX = parseFloat(particle.style.left) + speedX;
+            const posY = parseFloat(particle.style.top) + speedY - (progress * 20); // Add gravity effect
+            const opacity = 1 - progress;
+            
+            particle.style.left = `${posX}px`;
+            particle.style.top = `${posY}px`;
+            particle.style.opacity = opacity;
+            
+            requestAnimationFrame(animateParticle);
+          } else {
+            particle.remove();
+          }
+        }
+        
+        requestAnimationFrame(animateParticle);
+      }
+    }
 
- 
-document.addEventListener('click', function(event) {
-  const sideMenu = document.getElementById('sideMenu');
-  const hamburger = document.querySelector('.hamburger');
-  const isClickInsideMenu = sideMenu.contains(event.target);
-  const isClickOnHamburger = hamburger.contains(event.target);
-  const isHoverZone = event.target.classList.contains('hover-zone');
-  
-  if (!isClickInsideMenu && !isClickOnHamburger && !isHoverZone && sideMenu.classList.contains('active')) {
-    sideMenu.classList.remove('active');
-    hamburger.classList.remove('active');
-  }
-});
+    function toggleMenu() {
+      const sideMenu = document.getElementById('sideMenu');
+      const hamburger = document.querySelector('.hamburger');
+      
+      sideMenu.classList.toggle('active');
+      hamburger.classList.toggle('active');
+    }
+
+    document.addEventListener('click', function(event) {
+      const sideMenu = document.getElementById('sideMenu');
+      const hamburger = document.querySelector('.hamburger');
+      const isClickInsideMenu = sideMenu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+      const isHoverZone = event.target.classList.contains('hover-zone');
+      
+      if (!isClickInsideMenu && !isClickOnHamburger && !isHoverZone && sideMenu.classList.contains('active')) {
+        sideMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+      }
+    });
   </script>
 
 </body>
