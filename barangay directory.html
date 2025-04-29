@@ -129,15 +129,19 @@
       width: 150px; 
       height: 150px;
       border-radius: 50%;
-      transition: transform 0.3s ease;
+      transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
       background-color: white;
       padding: 5px;
       object-fit: cover;
       box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      cursor: pointer;
+      position: relative;
     }
 
     .barangay-logos img:hover {
-      transform: scale(1.1);
+      transform: scale(1.15) rotate(5deg);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3), 0 0 20px rgba(0, 170, 255, 0.5);
+      z-index: 2;
     }
 
     .modal {
@@ -149,8 +153,15 @@
       width: 100%;
       height: 100%;
       overflow: auto;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0,0,0,0.7);
+      backdrop-filter: blur(5px);
       padding-top: 60px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .modal.fade-in {
+      opacity: 1;
     }
 
     .modal-content {
@@ -161,6 +172,16 @@
       width: 80%;
       max-width: 600px; 
       border-radius: 10px;
+      transform: scale(0.5);
+      opacity: 0;
+      transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      overflow: hidden;
+    }
+
+    .modal.fade-in .modal-content {
+      transform: scale(1);
+      opacity: 1;
     }
 
     .modal-content img {
@@ -169,6 +190,14 @@
       margin-bottom: 20px;
       max-height: 400px;
       object-fit: cover;
+      transform: translateY(-50px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s;
+    }
+
+    .modal.fade-in .modal-content img {
+      transform: translateY(0);
+      opacity: 1;
     }
 
     .close {
@@ -176,73 +205,126 @@
       float: right;
       font-size: 28px;
       font-weight: bold;
+      transition: all 0.3s ease;
+      position: relative;
+      z-index: 2;
     }
 
     .close:hover,
     .close:focus {
-      color: black;
+      color: #00aaff;
       text-decoration: none;
       cursor: pointer;
+      transform: rotate(90deg);
     }
 
     #barangayDescription {
       color: black; 
       font-size: 16px; 
+      line-height: 1.6;
+      transform: translateX(-50px);
+      opacity: 0;
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s;
+    }
+
+    .modal.fade-in #barangayDescription {
+      transform: translateX(0);
+      opacity: 1;
     }
 
     #barangayName {
       color: #007bff;
       margin-bottom: 15px;
-      font-size: 24px;
+      font-size: 28px;
+      font-weight: bold;
+      text-align: center;
+      position: relative;
+      opacity: 0;
+      transform: translateY(-20px);
+      transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.1s;
+    }
+
+    .modal.fade-in #barangayName {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #barangayName::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      width: 0;
+      height: 3px;
+      background: linear-gradient(to right, #007bff, #00aaff);
+      transform: translateX(-50%);
+      transition: width 0.8s ease 0.7s;
+    }
+
+    .modal.fade-in #barangayName::after {
+      width: 50%;
+    }
+
+    /* Pulse animation for selected logo */
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 170, 255, 0.7); }
+      70% { box-shadow: 0 0 0 20px rgba(0, 170, 255, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 170, 255, 0); }
+    }
+
+    .selected-logo {
+      animation: pulse 1.5s infinite;
+      transform: scale(1.15) !important;
+      z-index: 2;
     }
 
     .hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #007bff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.hamburger:hover {
-  background: #0056b3;
-}
+    .hamburger:hover {
+      background: #0056b3;
+    }
 
-.hamburger div {
-  display: block;
-  width: 80%;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  margin: 3px 0;
-  transition: 0.3s;
-}
+    .hamburger div {
+      display: block;
+      width: 80%;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
 
-.hamburger.active div:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
 
-.hamburger.active div:nth-child(2) {
-  opacity: 0;
-}
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
 
-.hamburger.active div:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-.side-menu.open {
-  left: 0;
-}
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
+    .side-menu.open {
+      left: 0;
+    }
    
     @media screen and (max-width: 1200px) {
       .barangay-logos {
@@ -459,49 +541,98 @@
     const barangayImage = document.getElementById('barangayImage');
     const barangayDescription = document.getElementById('barangayDescription');
     const closeModal = modal.querySelector('.close');
+    let currentSelectedLogo = null;
 
     barangayLogos.forEach(logo => {
       logo.addEventListener('click', function() {
-        barangayName.textContent = logo.getAttribute('data-name');
-        barangayDescription.textContent = logo.getAttribute('data-description');
-        barangayImage.src = logo.getAttribute('data-image');
+        // Reset previously selected logo if exists
+        if (currentSelectedLogo) {
+          currentSelectedLogo.classList.remove('selected-logo');
+        }
+        
+         
+        currentSelectedLogo = this;
+        this.classList.add('selected-logo');
+        
+        
+        barangayName.textContent = this.getAttribute('data-name');
+        barangayDescription.textContent = this.getAttribute('data-description');
+        barangayImage.src = this.getAttribute('data-image');
+        
+        
         modal.style.display = 'block';
+        
+        
+        void modal.offsetWidth;
+        
+        
+        modal.classList.add('fade-in');
       });
     });
 
-    closeModal.addEventListener('click', () => {
-      modal.style.display = 'none';
-    });
+    function closeModalWithAnimation() {
+      modal.classList.remove('fade-in');
+      
+      
+      if (currentSelectedLogo) {
+        currentSelectedLogo.classList.remove('selected-logo');
+        currentSelectedLogo = null;
+      }
+      
+      
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 500);
+    }
+
+    closeModal.addEventListener('click', closeModalWithAnimation);
 
     window.addEventListener('click', (event) => {
       if (event.target === modal) {
-        modal.style.display = 'none';
+        closeModalWithAnimation();
       }
     });
 
-   
-    function toggleMenu() {
-    const menu = document.querySelector('.side-menu');
-    const hamburger = document.querySelector('.hamburger');
     
-    menu.classList.toggle('open');
-    hamburger.classList.toggle('active');
-  }
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && modal.style.display === 'block') {
+        closeModalWithAnimation();
+      }
+    });
 
-  
-  document.addEventListener('click', function(event) {
-    const menu = document.querySelector('.side-menu');
-    const hamburger = document.querySelector('.hamburger');
-    const isClickInsideMenu = menu.contains(event.target);
-    const isClickOnHamburger = hamburger.contains(event.target);
-
-    if (!isClickInsideMenu && !isClickOnHamburger) {
-      menu.classList.remove('open');
-      hamburger.classList.remove('active');
+    function toggleMenu() {
+      const menu = document.querySelector('.side-menu');
+      const hamburger = document.querySelector('.hamburger');
+      
+      menu.classList.toggle('open');
+      hamburger.classList.toggle('active');
     }
-  });
 
-  const userName = localStorage.getItem("userName") || "User";
+    document.addEventListener('click', function(event) {
+      const menu = document.querySelector('.side-menu');
+      const hamburger = document.querySelector('.hamburger');
+      const isClickInsideMenu = menu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickOnHamburger) {
+        menu.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    });
+
+    const userName = localStorage.getItem("userName") || "User";
+
+   
+    document.addEventListener('DOMContentLoaded', function() {
+      barangayLogos.forEach((logo, index) => {
+        setTimeout(() => {
+          logo.style.transform = 'scale(1.1) rotate(5deg)';
+          setTimeout(() => {
+            logo.style.transform = '';
+          }, 300);
+        }, index * 100);
+      });
+    });
   </script>
 
 </body>
