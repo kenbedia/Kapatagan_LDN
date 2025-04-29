@@ -18,6 +18,7 @@
       overflow-x: hidden;
       color: white;
       min-height: 100vh;
+      perspective: 1000px;
     }
 
     .container {
@@ -27,7 +28,7 @@
       padding: 0 15px;
     }
 
-    /* Side menu styles */
+    /* Side menu styles - kept intact */
     .hover-zone {
       position: fixed;
       top: 0;
@@ -88,7 +89,27 @@
 
     .side-menu ul li {
       margin-bottom: 10px;
+      opacity: 0;
+      transform: translateX(-20px);
+      animation: slideInMenu 0.5s forwards;
     }
+
+    @keyframes slideInMenu {
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .side-menu ul li:nth-child(1) { animation-delay: 0.1s; }
+    .side-menu ul li:nth-child(2) { animation-delay: 0.2s; }
+    .side-menu ul li:nth-child(3) { animation-delay: 0.3s; }
+    .side-menu ul li:nth-child(4) { animation-delay: 0.4s; }
+    .side-menu ul li:nth-child(5) { animation-delay: 0.5s; }
+    .side-menu ul li:nth-child(6) { animation-delay: 0.6s; }
+    .side-menu ul li:nth-child(7) { animation-delay: 0.7s; }
+    .side-menu ul li:nth-child(8) { animation-delay: 0.8s; }
+    .side-menu ul li:nth-child(9) { animation-delay: 0.9s; }
 
     .side-menu ul li a {
       color: white;
@@ -111,12 +132,13 @@
       display: none;
     }
 
-    /* Header styles */
+    /* Enhanced Header styles with animation */
     .main-header {
       text-align: center;
       padding: 60px 0 30px;
       z-index: 2;
       position: relative;
+      overflow: hidden;
     }
 
     .main-header img {
@@ -126,9 +148,23 @@
       border-radius: 20px;
       box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
       object-fit: contain;
+      transform: scale(0.95);
+      opacity: 0;
+      animation: zoomInHeader 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
     }
 
-    /* Content styles */
+    @keyframes zoomInHeader {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* Enhanced Content styles with animations */
     .tourism-section {
       padding: 50px 5%;
       text-align: justify;
@@ -140,6 +176,41 @@
       max-width: 1200px;
       z-index: 2;
       box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transform: translateY(40px);
+      animation: fadeUp 1s ease-out forwards 0.3s;
+      overflow: hidden;
+    }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .tourism-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 170, 255, 0.1) 0%, transparent 100%);
+      opacity: 0;
+      animation: glowPulse 6s infinite alternate;
+    }
+
+    @keyframes glowPulse {
+      0% {
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.3;
+      }
+      100% {
+        opacity: 0;
+      }
     }
 
     .tourism-section p {
@@ -147,6 +218,23 @@
       line-height: 1.8;
       margin-bottom: 40px;
       color: white;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    .tourism-section p:nth-of-type(1) {
+      animation: revealText 0.8s ease-out forwards 0.6s;
+    }
+
+    .tourism-section p:nth-of-type(2) {
+      animation: revealText 0.8s ease-out forwards 1.0s;
+    }
+
+    @keyframes revealText {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .tourism-section img {
@@ -156,14 +244,77 @@
       margin-bottom: 40px;
       object-fit: contain;
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+      opacity: 0;
+      transform: scale(0.95);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+
+    .tourism-section img:first-of-type {
+      animation: fadeInScale 1s ease-out forwards 0.8s;
+    }
+
+    .tourism-section img:last-of-type {
+      animation: fadeInScale 1s ease-out forwards 1.2s;
+    }
+
+    .tourism-section img:hover {
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes fadeInScale {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .tourism-section strong {
       color: #00aaff;
       font-size: 20px;
+      position: relative;
+      display: inline-block;
     }
 
-    /* Hamburger menu styles */
+    .tourism-section strong::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: #00aaff;
+      animation: expandLine 1s ease-out forwards 0.5s;
+    }
+
+    @keyframes expandLine {
+      to {
+        width: 100%;
+      }
+    }
+
+    /* 3D Text animation for headers */
+    .highlight-text {
+      display: inline-block;
+      position: relative;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-6px);
+      }
+    }
+
+    
     .hamburger {
       position: fixed;
       top: 20px;
@@ -209,7 +360,52 @@
       transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Responsive design */
+    
+    .parallax-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      margin-bottom: 40px;
+    }
+
+    .parallax-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 120%;
+      background-size: cover;
+      background-position: center;
+      transform: translateZ(0);
+      z-index: -1;
+    }
+
+    
+    .glow-hover {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .glow-hover::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+      opacity: 0;
+      transform: scale(0.5);
+      transition: opacity 0.5s, transform 0.5s;
+      pointer-events: none;
+    }
+
+    .glow-hover:hover::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+   
     @media screen and (max-width: 992px) {
       .tourism-section {
         padding: 40px 4%;
@@ -284,14 +480,22 @@
       }
     }
 
-    /* Animation for page loading */
+    
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    .main-header, .tourism-section {
-      animation: fadeIn 0.8s ease-out forwards;
+    
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -328,13 +532,13 @@
   </div>
 
   <div class="container">
-    <div class="main-header">
+    <div class="main-header reveal">
       <img src="pool.png" alt="Kapatagan Tourism Banner">
     </div>
     
-    <div class="tourism-section">
+    <div class="tourism-section glow-hover reveal">
       <p>
-        Looking for the next destination to visit in the Philippines? If you're already in the Mindanao region, you should head out to Kapatagan, Lanao del Norte. It is a second-class municipality located in Lanao del Norte, Philippines. The place offers opportunities for you to explore nature's wonders: great natural attractions, adventures, and scenic charms.
+        Looking for the next destination to visit in the Philippines? If you're already in the Mindanao region, you should head out to <span class="highlight-text">Kapatagan, Lanao del Norte</span>. It is a second-class municipality located in Lanao del Norte, Philippines. The place offers opportunities for you to explore nature's wonders: great natural attractions, adventures, and scenic charms.
         <br><br>
         Kapatagan is blessed by mountains on its southern and eastern sides, protecting the town from typhoons. There are valleys, coastal lands, and five major rivers running across the town — plus two beautiful waterfalls! Perfect for trekking and outdoor adventures.
         <br><br>
@@ -342,20 +546,24 @@
         Kapatagan offers a perfect blend of rice fields stretching to the horizon, majestic mountains, and serene lakes. Travelers seeking breathtaking views, peace, and adventure will surely fall in love with the place.
       </p>
     
-      <img src="cathedrall Falls.jpg" alt="Cathedral Falls in Kapatagan">
+      <div class="parallax-container reveal">
+        <img src="cathedrall Falls.jpg" alt="Cathedral Falls in Kapatagan">
+      </div>
     
-      <p>
+      <p class="reveal">
         <strong>A Symphony of Vast Rice Fields:</strong><br>
         Enchanting lush green rice fields showcase the harmony between people and nature. The soothing wind through the grains will make you feel relaxed and connected to rural life.
         <br><br>
         <strong>Majestic Mountain Panoramas:</strong><br>
-        Surrounded by mountains like Durano Mountain View Resort, Kapatagan invites you to hike and marvel at its panoramic vistas. Perfect for adventurers and peace seekers alike.
+        Surrounded by mountains like <span class="highlight-text">Durano Mountain View Resort</span>, Kapatagan invites you to hike and marvel at its panoramic vistas. Perfect for adventurers and peace seekers alike.
         <br><br>
         <strong>Serene Lake Bliss:</strong><br>
         La Libertad Lake Adventure is a hidden gem, offering kayaking and peaceful shores to unwind and reconnect with nature's simple beauty.
       </p>
     
-      <img src="durano view.jpg" alt="Durano Mountain View in Kapatagan">
+      <div class="parallax-container reveal">
+        <img src="durano view.jpg" alt="Durano Mountain View in Kapatagan">
+      </div>
     </div>
   </div>
 
@@ -369,7 +577,7 @@
       hamburger.classList.toggle('active');
     }
 
-    
+   
     document.addEventListener('click', function(event) {
       const sideMenu = document.getElementById('sideMenu');
       const hamburger = document.querySelector('.hamburger');
@@ -383,7 +591,7 @@
       }
     });
 
-    // Handle responsive images
+    
     window.addEventListener('load', function() {
       const images = document.querySelectorAll('img');
       images.forEach(img => {
@@ -393,6 +601,43 @@
           img.addEventListener('load', function() {
             img.classList.add('loaded');
           });
+        }
+      });
+    });
+
+     
+    function revealElements() {
+      const reveals = document.querySelectorAll('.reveal');
+      const windowHeight = window.innerHeight;
+      
+      reveals.forEach(element => {
+        const elementTop = element.getBoundingClientRect().top;
+        const elementVisible = 150;
+        
+        if (elementTop < windowHeight - elementVisible) {
+          element.classList.add('active');
+        }
+      });
+    }
+
+    window.addEventListener('scroll', revealElements);
+    window.addEventListener('load', revealElements);
+
+     
+    window.addEventListener('scroll', function() {
+      const parallaxContainers = document.querySelectorAll('.parallax-container');
+      
+      parallaxContainers.forEach(container => {
+        const img = container.querySelector('img');
+        const scrollPosition = window.pageYOffset;
+        const containerTop = container.getBoundingClientRect().top + scrollPosition;
+        const containerHeight = container.offsetHeight;
+        
+        if (scrollPosition + window.innerHeight > containerTop && 
+            scrollPosition < containerTop + containerHeight) {
+          const distance = scrollPosition - containerTop;
+          const speed = 0.2;
+          img.style.transform = `translateY(${distance * speed}px)`;
         }
       });
     });
