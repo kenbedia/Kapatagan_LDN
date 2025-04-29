@@ -14,57 +14,57 @@
     body {
       font-family: 'Arial', sans-serif;
       background: url(background.png) no-repeat center center/cover;
-      overflow-x: hidden;
+      min-height: 100vh;
       color: white;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
     }
 
     .hamburger {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  width: 45px;
-  height: 45px;
-  cursor: pointer;
-  z-index: 5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: #007bff;
-  border-radius: 8px;
-  padding: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
-}
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 45px;
+      height: 45px;
+      cursor: pointer;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: #007bff;
+      border-radius: 8px;
+      padding: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s ease;
+    }
 
-.hamburger:hover {
-  background: #0056b3;
-}
+    .hamburger:hover {
+      background: #0056b3;
+    }
 
-.hamburger div {
-  display: block;
-  width: 80%;
-  height: 3px;
-  background: white;
-  border-radius: 2px;
-  margin: 3px 0;
-  transition: 0.3s;
-}
+    .hamburger div {
+      display: block;
+      width: 80%;
+      height: 3px;
+      background: white;
+      border-radius: 2px;
+      margin: 3px 0;
+      transition: 0.3s;
+    }
 
-.hamburger.active div:nth-child(1) {
-  transform: rotate(45deg) translate(5px, 5px);
-}
+    .hamburger.active div:nth-child(1) {
+      transform: rotate(45deg) translate(5px, 5px);
+    }
 
-.hamburger.active div:nth-child(2) {
-  opacity: 0;
-}
+    .hamburger.active div:nth-child(2) {
+      opacity: 0;
+    }
 
-.hamburger.active div:nth-child(3) {
-  transform: rotate(-45deg) translate(5px, -5px);
-}
-.side-menu.open {
-  left: 0;
-}
+    .hamburger.active div:nth-child(3) {
+      transform: rotate(-45deg) translate(5px, -5px);
+    }
 
     .side-menu {
       position: fixed;
@@ -130,52 +130,104 @@
       transform: scale(1.05);
     }
 
-    .main-content {
+    .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
       min-height: 100vh;
-      padding: 20px;
+      padding: 40px 20px;
     }
 
-    form {
+    .contact-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .form-container {
       background: rgba(0, 0, 0, 0.6);
-      padding: 50px;
+      padding: 40px;
       border-radius: 15px;
-      width: 100vw;
-      max-width: none;
+      width: 100%;
       backdrop-filter: blur(5px);
       box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      margin-bottom: 40px;
+      transform: translateY(0);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
     }
 
-    form h2 {
+    .form-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 170, 255, 0.3);
+    }
+
+    .form-container h2 {
       text-align: center;
       color: #00aaff;
       margin-bottom: 30px;
       font-size: 36px;
+      position: relative;
     }
 
-    form input,
-    form textarea {
+    .form-container h2:after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 3px;
+      background: #00aaff;
+      border-radius: 2px;
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+      position: relative;
+    }
+
+    .input-group input,
+    .input-group textarea {
       width: 100%;
       padding: 20px 25px;
-      margin-bottom: 25px;
       border: none;
       border-radius: 10px;
-      font-size: 20px;
+      font-size: 18px;
       background: rgba(255, 255, 255, 0.1);
       color: white;
+      transition: all 0.3s ease;
     }
 
-    form input::placeholder,
-    form textarea::placeholder {
+    .input-group input:focus,
+    .input-group textarea:focus {
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.3);
+      outline: none;
+    }
+
+    .input-group input::placeholder,
+    .input-group textarea::placeholder {
       color: #ccc;
-      font-size: 18px;
+      font-size: 16px;
+      transition: all 0.3s ease;
     }
 
-    form textarea {
+    .input-group input:focus::placeholder,
+    .input-group textarea:focus::placeholder {
+      opacity: 0.5;
+      transform: translateY(-5px);
+    }
+
+    .input-group textarea {
       resize: vertical;
-      height: 200px;
+      height: 150px;
     }
 
-    form button {
+    .submit-btn {
+      display: block;
+      width: 100%;
       background: #00aaff;
       color: white;
       border: none;
@@ -183,38 +235,89 @@
       font-size: 20px;
       border-radius: 10px;
       cursor: pointer;
-      transition: background 0.3s, transform 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
-    form button:hover {
+    .submit-btn:before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: 0.5s;
+    }
+
+    .submit-btn:hover {
       background: #008fcc;
-      transform: scale(1.05);
+      transform: scale(1.02);
     }
 
-    .gif-footer {
-      margin-top: 50px;
-      text-align: center;
+    .submit-btn:hover:before {
+      left: 100%;
     }
 
-    .gif-footer img {
-      max-width: 1450px;
-      width: 105%;
+    .gif-container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      overflow: hidden;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .gif-container img {
+      width: 100%;
       height: auto;
-      border-radius: none;
-      box-shadow: none;
+      display: block;
+      transform: scale(1);
+      transition: transform 0.5s ease;
+    }
+
+    .gif-container img:hover {
+      transform: scale(1.02);
+    }
+
+    .success-message {
+      position: fixed;
+      top: -100px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 200, 83, 0.9);
+      color: white;
+      padding: 20px 40px;
+      border-radius: 8px;
+      font-size: 18px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      transition: top 0.5s ease;
+      z-index: 10;
+    }
+
+    .success-message.show {
+      top: 30px;
     }
 
     @media (max-width: 768px) {
-      .hover-zone {
-        display: block;
+      .form-container {
+        padding: 30px 20px;
       }
-
-      .side-menu {
-        left: -250px;
+      
+      .form-container h2 {
+        font-size: 28px;
       }
-
-      .side-menu.open {
-        left: 0;
+      
+      .input-group input,
+      .input-group textarea {
+        padding: 15px 20px;
+        font-size: 16px;
+      }
+      
+      .submit-btn {
+        padding: 15px 30px;
+        font-size: 18px;
       }
     }
   </style>
@@ -249,51 +352,89 @@
       </ul>    
     </div>
   </div>
-  <div class="main-content">
-    <form onsubmit="submitForm(event)">
-      <h2>Contact Us</h2>
-      <input type="text" placeholder="Full Name" required />
-      <input type="email" placeholder="Email Address" required />
-      <input type="text" placeholder="Subject" required />
-      <textarea placeholder="Your Message..." required></textarea>
-      <button type="submit">Send Message</button>
-    </form>
+
+  <div class="success-message" id="successMessage">
+    Thank you for your message! We'll get back to you soon.
   </div>
 
-  <div class="gif-footer">
-    <img src="Connected.gif" alt="Connected Animation" />
+  <div class="main-container">
+    <div class="contact-container">
+      <div class="form-container">
+        <h2>Contact Us</h2>
+        <form id="contactForm">
+          <div class="input-group">
+            <input type="text" placeholder="Full Name" required id="name" />
+          </div>
+          <div class="input-group">
+            <input type="email" placeholder="Email Address" required id="email" />
+          </div>
+          <div class="input-group">
+            <input type="text" placeholder="Subject" required id="subject" />
+          </div>
+          <div class="input-group">
+            <textarea placeholder="Your Message..." required id="message"></textarea>
+          </div>
+          <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+      </div>
+      
+      <div class="gif-container">
+        <img src="Connected.gif" alt="Connected Animation" />
+      </div>
+    </div>
   </div>
 
   <script>
-    function submitForm(event) {
+     
+    function toggleMenu() {
+      const menu = document.querySelector('.side-menu');
+      const hamburger = document.querySelector('.hamburger');
+      
+      menu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+    }
+
+ 
+    document.addEventListener('click', function(event) {
+      const menu = document.querySelector('.side-menu');
+      const hamburger = document.querySelector('.hamburger');
+      const isClickInsideMenu = menu.contains(event.target);
+      const isClickOnHamburger = hamburger.contains(event.target);
+
+      if (!isClickInsideMenu && !isClickOnHamburger && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        hamburger.classList.remove('active');
+      }
+    });
+ 
+    document.getElementById('contactForm').addEventListener('submit', function(event) {
       event.preventDefault();
-      alert("Thank you for your message! We’ll get back to you soon.");
-      event.target.reset();
-    }
+      
+  
+      const successMessage = document.getElementById('successMessage');
+      successMessage.classList.add('show');
+      
+      
+      this.reset();
+      
+      
+      setTimeout(function() {
+        successMessage.classList.remove('show');
+      }, 3000);
+    });
 
-    
-  function toggleMenu() {
-    const menu = document.querySelector('.side-menu');
-    const hamburger = document.querySelector('.hamburger');
-    
-    menu.classList.toggle('open');
-    hamburger.classList.toggle('active');
-  }
-
-   
-  document.addEventListener('click', function(event) {
-    const menu = document.querySelector('.side-menu');
-    const hamburger = document.querySelector('.hamburger');
-    const isClickInsideMenu = menu.contains(event.target);
-    const isClickOnHamburger = hamburger.contains(event.target);
-
-    if (!isClickInsideMenu && !isClickOnHamburger) {
-      menu.classList.remove('open');
-      hamburger.classList.remove('active');
-    }
-  });
-</script>
-
-
+ 
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+      input.addEventListener('focus', function() {
+        this.parentElement.style.transform = 'translateY(-5px)';
+        this.parentElement.style.transition = 'transform 0.3s ease';
+      });
+      
+      input.addEventListener('blur', function() {
+        this.parentElement.style.transform = 'translateY(0)';
+      });
+    });
+  </script>
 </body>
 </html>
