@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>Barangay Directory</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     * {
       margin: 0;
@@ -26,24 +27,24 @@
     }
 
     .side-menu {
-    position: fixed;
-    top: 0;  
-    left: -250px;  
-   width: 250px;
-   height: 100vh;  
-   background: rgba(0, 0, 0, 0.7);
-   backdrop-filter: blur(10px);
-   padding: 30px 20px;
-   transition: left 0.4s ease;
-   z-index: 3;
-   display: flex;
-   flex-direction: column;
-   justify-content: flex-start; / 
-}
+      position: fixed;
+      top: 0;  
+      left: -250px;  
+      width: 250px;
+      height: 100vh;  
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      padding: 30px 20px;
+      transition: left 0.4s ease;
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
 
-.side-menu.open {
-  left: 0;  
-}
+    .side-menu.open {
+      left: 0;  
+    }
 
     .hover-zone:hover + .side-menu,
     .side-menu:hover {
@@ -89,7 +90,6 @@
       transform: scale(1.05);
     }
 
-    
     .side-menu #logoutBtn {
       display: none;
     }
@@ -121,6 +121,8 @@
       gap: 20px;
       justify-items: center;
       margin-top: 50px;
+      width: 100%;
+      max-width: 1200px;
     }
 
     .barangay-logos img {
@@ -141,7 +143,7 @@
     .modal {
       display: none;
       position: fixed;
-      z-index: 1;
+      z-index: 10;
       left: 0;
       top: 0;
       width: 100%;
@@ -158,12 +160,15 @@
       border: 1px solid #888;
       width: 80%;
       max-width: 600px; 
+      border-radius: 10px;
     }
 
     .modal-content img {
       width: 100%;
       border-radius: 10px;
       margin-bottom: 20px;
+      max-height: 400px;
+      object-fit: cover;
     }
 
     .close {
@@ -185,7 +190,12 @@
       font-size: 16px; 
     }
 
-     
+    #barangayName {
+      color: #007bff;
+      margin-bottom: 15px;
+      font-size: 24px;
+    }
+
     .hamburger-box {
       position: fixed;
       top: 20px;
@@ -213,9 +223,68 @@
       margin: 3px 0;
       transition: 0.3s;
     }
+    
+    /* Responsive design styles */
+    @media screen and (max-width: 1200px) {
+      .barangay-logos {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
 
-    .side-menu.open {
-      left: 0 !important;
+    @media screen and (max-width: 992px) {
+      .barangay-logos {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      
+      .barangay-logos img {
+        width: 130px;
+        height: 130px;
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      .barangay-logos {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+      }
+      
+      .barangay-logos img {
+        width: 120px;
+        height: 120px;
+      }
+      
+      .directory-title {
+        font-size: 30px;
+      }
+    }
+
+    @media screen and (max-width: 576px) {
+      .barangay-logos {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+      }
+      
+      .barangay-logos img {
+        width: 110px;
+        height: 110px;
+      }
+      
+      .side-menu {
+        width: 230px;
+      }
+      
+      .hover-zone {
+        display: none;
+      }
+      
+      .directory-title {
+        font-size: 24px;
+      }
+      
+      .modal-content {
+        width: 90%;
+        padding: 15px;
+      }
     }
   </style>
 </head>
@@ -249,117 +318,109 @@
     </ul>
   </div>
   <div class="main-content">
+    <h1 class="directory-title">Barangay Directory</h1>
     <div class="barangay-logos">
 
-  <img src="Bagong-Badian.png" alt="Barangay 1" class="barangay-logo" 
-  data-name="Bagong-Badian" 
-  data-description="Barangay Bagong Badian, located in Kapatagan, Lanao del Norte, is a peaceful rural community with a recorded population of 513 as of the 2020 census. It is renowned for its elementary school that serves as the foundation for children's education. The barangay is characterized by its wide agricultural lands, which are primarily utilized for farming, sustaining the livelihoods of many families. The residents value education, cooperation, and a simple way of life." 
-  data-image="Barangay 1.jpg" />
+      <img src="Bagong-Badian.png" alt="Barangay 1" class="barangay-logo" 
+      data-name="Bagong-Badian" 
+      data-description="Barangay Bagong Badian, located in Kapatagan, Lanao del Norte, is a peaceful rural community with a recorded population of 513 as of the 2020 census. It is renowned for its elementary school that serves as the foundation for children's education. The barangay is characterized by its wide agricultural lands, which are primarily utilized for farming, sustaining the livelihoods of many families. The residents value education, cooperation, and a simple way of life." 
+      data-image="Barangay 1.jpg" />
 
-  <img src="Bagong-Silang.png" alt="Barangay 2" class="barangay-logo" 
-  data-name="Bagong-Silang" 
-  data-description="Barangay Bagong Silang is a vibrant farming community in Kapatagan, Lanao del Norte, with a population of 1,546 as of 2020. It is known for its extensive rice fields and strong sense of unity among residents. The people of Bagong Silang actively support agricultural initiatives and are recognized for their cooperative spirit, working together for community development and prosperity." 
-  data-image="Barangay 2.jpg" />
+      <img src="Bagong-Silang.png" alt="Barangay 2" class="barangay-logo" 
+      data-name="Bagong-Silang" 
+      data-description="Barangay Bagong Silang is a vibrant farming community in Kapatagan, Lanao del Norte, with a population of 1,546 as of 2020. It is known for its extensive rice fields and strong sense of unity among residents. The people of Bagong Silang actively support agricultural initiatives and are recognized for their cooperative spirit, working together for community development and prosperity." 
+      data-image="Barangay 2.jpg" />
 
-  <img src="Balili.png" alt="Barangay 3" class="barangay-logo" 
-  data-name="Balili" 
-  data-description="Barangay Balili, one of the larger barangays of Kapatagan with a population of 3,005 as of the 2020 census, serves as a spiritual and communal hub with its prominent church. Well-maintained roads connect different parts of the barangay, promoting ease of access and mobility. Balili is home to a diverse community engaged in farming, commerce, and religious activities, strengthening the social fabric of the area." 
-  data-image="Barangay 3.jpg" />
+      <img src="Balili.png" alt="Barangay 3" class="barangay-logo" 
+      data-name="Balili" 
+      data-description="Barangay Balili, one of the larger barangays of Kapatagan with a population of 3,005 as of the 2020 census, serves as a spiritual and communal hub with its prominent church. Well-maintained roads connect different parts of the barangay, promoting ease of access and mobility. Balili is home to a diverse community engaged in farming, commerce, and religious activities, strengthening the social fabric of the area." 
+      data-image="Barangay 3.jpg" />
 
-  <img src="Bansarvil.png" alt="Barangay 4" class="barangay-logo" 
-  data-name="Bansarvil" 
-  data-description="Barangay Bansarvil, home to 2,268 residents in 2020, is notable for its commitment to education, highlighted by the presence of a national high school. The youth of Bansarvil are actively involved in community and development projects, promoting social responsibility and leadership among young citizens. Farming and cooperative enterprises also play a vital role in the local economy." 
-  data-image="Barangay 4.jpg" />
+      <img src="Bansarvil.png" alt="Barangay 4" class="barangay-logo" 
+      data-name="Bansarvil" 
+      data-description="Barangay Bansarvil, home to 2,268 residents in 2020, is notable for its commitment to education, highlighted by the presence of a national high school. The youth of Bansarvil are actively involved in community and development projects, promoting social responsibility and leadership among young citizens. Farming and cooperative enterprises also play a vital role in the local economy." 
+      data-image="Barangay 4.jpg" />
 
-  <img src="Bel-is.png" alt="Barangay 5" class="barangay-logo" 
-  data-name="Bel-is" 
-  data-description="Barangay Bel-is is a small yet resilient community in Kapatagan, consisting of 991 residents as of 2020. The barangay thrives on agriculture, with farmlands producing essential crops for local consumption and trade. Known for their hardworking and persistent spirit, the people of Bel-is continue to build a future rooted in solidarity and perseverance." 
-  data-image="Barangay 5.jpg" />
+      <img src="Bel-is.png" alt="Barangay 5" class="barangay-logo" 
+      data-name="Bel-is" 
+      data-description="Barangay Bel-is is a small yet resilient community in Kapatagan, consisting of 991 residents as of 2020. The barangay thrives on agriculture, with farmlands producing essential crops for local consumption and trade. Known for their hardworking and persistent spirit, the people of Bel-is continue to build a future rooted in solidarity and perseverance." 
+      data-image="Barangay 5.jpg" />
 
-  <img src="Buenavista.png" alt="Barangay 6" class="barangay-logo" 
-  data-name="Buenavista" 
-  data-description="Barangay Buenavista, meaning 'beautiful view,' lives up to its name with its scenic landscapes and welcoming atmosphere. With a population of 817 as of 2020, it is a tranquil place where hospitality and community engagement are core values. Residents take pride in maintaining the natural beauty of their surroundings while fostering a friendly and inclusive community." 
-  data-image="haha.jpg" />
+      <img src="Buenavista.png" alt="Barangay 6" class="barangay-logo" 
+      data-name="Buenavista" 
+      data-description="Barangay Buenavista, meaning 'beautiful view,' lives up to its name with its scenic landscapes and welcoming atmosphere. With a population of 817 as of 2020, it is a tranquil place where hospitality and community engagement are core values. Residents take pride in maintaining the natural beauty of their surroundings while fostering a friendly and inclusive community." 
+      data-image="haha.jpg" />
 
-  <img src="Butadon.png" alt="Barangay 7" class="barangay-logo" 
-  data-name="Butadon" 
-  data-description="Barangay Butadon, the most populous barangay in Kapatagan with 4,207 residents as of the 2020 census, serves as a major commercial and trade center. Various businesses and establishments cater to the needs of both locals and visitors. Well-developed road networks facilitate trade and transportation, reinforcing Butadon’s role as a bustling economic hub." 
-  data-image="Barangay 7.jpg" />
+      <img src="Butadon.png" alt="Barangay 7" class="barangay-logo" 
+      data-name="Butadon" 
+      data-description="Barangay Butadon, the most populous barangay in Kapatagan with 4,207 residents as of the 2020 census, serves as a major commercial and trade center. Various businesses and establishments cater to the needs of both locals and visitors. Well-developed road networks facilitate trade and transportation, reinforcing Butadon's role as a bustling economic hub." 
+      data-image="Barangay 7.jpg" />
 
-  <img src="Cathedral-Falls.png" alt="Barangay 8" class="barangay-logo" 
-  data-name="Cathedral-Falls" 
-  data-description="Barangay Cathedral Falls is named after the iconic natural wonder located within its territory, featuring stunning rock formations that resemble cathedral pillars. As both a barangay and a tourist destination, it draws numerous visitors who appreciate its natural splendor. The community, proud of its heritage, actively promotes environmental preservation and tourism development." 
-  data-image="falls.avif" />
+      <img src="Cathedral-Falls.png" alt="Barangay 8" class="barangay-logo" 
+      data-name="Cathedral-Falls" 
+      data-description="Barangay Cathedral Falls is named after the iconic natural wonder located within its territory, featuring stunning rock formations that resemble cathedral pillars. As both a barangay and a tourist destination, it draws numerous visitors who appreciate its natural splendor. The community, proud of its heritage, actively promotes environmental preservation and tourism development." 
+      data-image="falls.avif" />
 
-  <img src="Concepcion.png" alt="Barangay 9" class="barangay-logo" 
-  data-name="Concepcion" 
-  data-description="Barangay Concepcion, with a peaceful atmosphere and a population of 736 as of 2020, is a nature-friendly community in Kapatagan. It is characterized by its verdant surroundings and the close-knit unity of its residents. Community development initiatives are strongly supported by the people, promoting sustainable growth and mutual support." 
-  data-image="Barangay 9.jpg" />
+      <img src="Concepcion.png" alt="Barangay 9" class="barangay-logo" 
+      data-name="Concepcion" 
+      data-description="Barangay Concepcion, with a peaceful atmosphere and a population of 736 as of 2020, is a nature-friendly community in Kapatagan. It is characterized by its verdant surroundings and the close-knit unity of its residents. Community development initiatives are strongly supported by the people, promoting sustainable growth and mutual support." 
+      data-image="Barangay 9.jpg" />
 
-  <img src="Curvada.png" alt="Barangay 10" class="barangay-logo" 
-  data-name="Curvada" 
-  data-description="Barangay Curvada, inhabited by 1,638 people as of the 2020 census, is a community interconnected by a network of roads that improve access to surrounding areas. Farming remains the primary source of livelihood, with families engaged in rice, corn, and vegetable production. The barangay is steadily progressing through local initiatives and agricultural productivity." 
-  data-image="Barangay 10.jpg" />
+      <img src="Curvada.png" alt="Barangay 10" class="barangay-logo" 
+      data-name="Curvada" 
+      data-description="Barangay Curvada, inhabited by 1,638 people as of the 2020 census, is a community interconnected by a network of roads that improve access to surrounding areas. Farming remains the primary source of livelihood, with families engaged in rice, corn, and vegetable production. The barangay is steadily progressing through local initiatives and agricultural productivity." 
+      data-image="Barangay 10.jpg" />
 
-<img src="De-Asis.png" alt="Barangay 11" class="barangay-logo" 
-  data-name="De-Asis" 
-  data-description="Barangay De Asis, home to 1,101 residents according to the 2020 census, is known for its active citizenry and strong community programs. Residents value unity and cooperation, evident through their collective efforts in community projects, clean-up drives, and educational activities, all aimed at uplifting the welfare of the barangay." 
-  data-image="Barangay 11.jpg" />
+      <img src="De-Asis.png" alt="Barangay 11" class="barangay-logo" 
+      data-name="De-Asis" 
+      data-description="Barangay De Asis, home to 1,101 residents according to the 2020 census, is known for its active citizenry and strong community programs. Residents value unity and cooperation, evident through their collective efforts in community projects, clean-up drives, and educational activities, all aimed at uplifting the welfare of the barangay." 
+      data-image="Barangay 11.jpg" />
 
-  <img src="Donggoan.png" alt="Barangay 12" class="barangay-logo" 
-  data-name="Donggoan" 
-  data-description="Barangay Donggoan, with 2,827 residents as of 2020, is a progressive barangay noted for its dedication to community improvement and sustainable development. Residents participate actively in local governance and programs aimed at enhancing education, infrastructure, and social welfare, making it one of Kapatagan’s model communities." 
-  data-image="Barangay 12.jpg" />
+      <img src="Donggoan.png" alt="Barangay 12" class="barangay-logo" 
+      data-name="Donggoan" 
+      data-description="Barangay Donggoan, with 2,827 residents as of 2020, is a progressive barangay noted for its dedication to community improvement and sustainable development. Residents participate actively in local governance and programs aimed at enhancing education, infrastructure, and social welfare, making it one of Kapatagan's model communities." 
+      data-image="Barangay 12.jpg" />
 
-  <img src="Durano.png" alt="Barangay 13" class="barangay-logo" 
-  data-name="Durano" 
-  data-description="Barangay Durano, a peaceful community surrounded by nature, recorded a population of 758 as of 2020. Agriculture plays a major role in the economy, and the residents’ cooperation in various projects has significantly contributed to the barangay's steady progress. Traditional values of bayanihan and mutual respect are highly observed." 
-  data-image="Barangay 13.jpg" />
+      <img src="Durano.png" alt="Barangay 13" class="barangay-logo" 
+      data-name="Durano" 
+      data-description="Barangay Durano, a peaceful community surrounded by nature, recorded a population of 758 as of 2020. Agriculture plays a major role in the economy, and the residents' cooperation in various projects has significantly contributed to the barangay's steady progress. Traditional values of bayanihan and mutual respect are highly observed." 
+      data-image="Barangay 13.jpg" />
 
-  <img src="Tipolo.png" alt="Barangay 14" class="barangay-logo" 
-  data-name="Tipolo" 
-  data-description="Barangay Tipolo is a serene, nature-surrounded community with 734 inhabitants as of the 2020 census. Unity and collaboration among residents define this barangay, where people work hand-in-hand in maintaining peace and implementing community-based projects that benefit all members of society." 
-  data-image="Barangay 14.jpg" />
+      <img src="Tipolo.png" alt="Barangay 14" class="barangay-logo" 
+      data-name="Tipolo" 
+      data-description="Barangay Tipolo is a serene, nature-surrounded community with 734 inhabitants as of the 2020 census. Unity and collaboration among residents define this barangay, where people work hand-in-hand in maintaining peace and implementing community-based projects that benefit all members of society." 
+      data-image="Barangay 14.jpg" />
 
-  <img src="Kahayagan.png" alt="Barangay 15" class="barangay-logo" 
-  data-name="Kahayagan" 
-  data-description="Barangay Kahayagan, with a population of 981 as of 2020, is distinguished by its lush environment and peaceful lifestyle. The residents are committed to supporting every barangay project, contributing to environmental conservation, infrastructure improvement, and education, ensuring that Kahayagan remains a model of communal solidarity." 
-  data-image="Barangay 15.webp" />
+      <img src="Kahayagan.png" alt="Barangay 15" class="barangay-logo" 
+      data-name="Kahayagan" 
+      data-description="Barangay Kahayagan, with a population of 981 as of 2020, is distinguished by its lush environment and peaceful lifestyle. The residents are committed to supporting every barangay project, contributing to environmental conservation, infrastructure improvement, and education, ensuring that Kahayagan remains a model of communal solidarity." 
+      data-image="Barangay 15.webp" />
 
-  <img src="Kidalos.png" alt="Barangay 16" class="barangay-logo" 
-  data-name="Kidalos" 
-  data-description="Barangay Kidalos is a dynamic agricultural community where farming is the primary source of livelihood. Known for their strong sense of unity and teamwork, the residents of Kidalos actively participate in community activities, ensuring the barangay's development while preserving its agricultural traditions." 
-  data-image="Barangay 16.jpg" />
+      <img src="Kidalos.png" alt="Barangay 16" class="barangay-logo" 
+      data-name="Kidalos" 
+      data-description="Barangay Kidalos is a dynamic agricultural community where farming is the primary source of livelihood. Known for their strong sense of unity and teamwork, the residents of Kidalos actively participate in community activities, ensuring the barangay's development while preserving its agricultural traditions." 
+      data-image="Barangay 16.jpg" />
 
-  <img src="LA-LIBERTAD.png" alt="Barangay 17" class="barangay-logo" 
-  data-name="LA-LIBERTAD" 
-  data-description="Barangay La Libertad is a progressive barangay recognized for its strong community spirit and agricultural productivity. The residents collaborate closely on various development projects, including infrastructure, livelihood programs, and youth empowerment activities, fostering a sustainable and forward-looking community." 
-  data-image="Barangay 17.jpg" />
+      <img src="LA-LIBERTAD.png" alt="Barangay 17" class="barangay-logo" 
+      data-name="LA-LIBERTAD" 
+      data-description="Barangay La Libertad is a progressive barangay recognized for its strong community spirit and agricultural productivity. The residents collaborate closely on various development projects, including infrastructure, livelihood programs, and youth empowerment activities, fostering a sustainable and forward-looking community." 
+      data-image="Barangay 17.jpg" />
 
-  <img src="Susu.jpg" alt="Barangay 18" class="barangay-logo" 
-  data-name="Suso" 
-  data-description="Suso is a barangay located in the municipality of Kapatagan, within the province of Lanao del Norte in Northern Mindanao, Philippines. As of the 2020 census, it has a population of 922 residents, accounting for approximately 1.47% of Kapatagan’s total population . Situated at an elevation of around 171 meters above sea level, Suso experiences a tropical rainforest climate." 
-  data-image="Barangay 18.jpg" />
+      <img src="Susu.jpg" alt="Barangay 18" class="barangay-logo" 
+      data-name="Suso" 
+      data-description="Suso is a barangay located in the municipality of Kapatagan, within the province of Lanao del Norte in Northern Mindanao, Philippines. As of the 2020 census, it has a population of 922 residents, accounting for approximately 1.47% of Kapatagan's total population . Situated at an elevation of around 171 meters above sea level, Suso experiences a tropical rainforest climate." 
+      data-image="Barangay 18.jpg" />
 
-  <img src="santa.cruz.jpg" alt="Barangay 19" class="barangay-logo" 
-  data-name="Santa Cruz" 
-  data-description="Santa Cruz is a barangay in the municipality of Kapatagan, Lanao del Norte, Philippines. As of the 2020 census, it has a population of 1,291 residents, reflecting a steady growth from 709 in 1990 . The barangay is also home to the scenic Sta. Cruz Falls, a local natural attraction situated on its outskirts."
-  data-image="Barangay 19.jpg" />
+      <img src="santa.cruz.jpg" alt="Barangay 19" class="barangay-logo" 
+      data-name="Santa Cruz" 
+      data-description="Santa Cruz is a barangay in the municipality of Kapatagan, Lanao del Norte, Philippines. As of the 2020 census, it has a population of 1,291 residents, reflecting a steady growth from 709 in 1990 . The barangay is also home to the scenic Sta. Cruz Falls, a local natural attraction situated on its outskirts."
+      data-image="Barangay 19.jpg" />
 
-  <img src="poblacion.kapatagan.jpg" alt="Barangay 20" class="barangay-logo" 
-  data-name="Poblacion" 
-  data-description="Ang Barangay Poblacion mao ang sentro sa munisipyo sa Kapatagan, Lanao del Norte, ug adunay labing daghang populasyon nga 11,567 sumala sa 2020 Census, nga nagrepresentar sa 18.49% sa tibuok populasyon sa lungsod . Nahimutang kini sa koordinato nga 7.8981°N, 123.7698°E, ug adunay elevation nga 16.3 metros ibabaw sa dagat . Ingon nga administratibong ug komersyal nga hub, ang Poblacion naglangkob sa mga pasilidad sa lokal nga gobyerno, edukasyon, ug negosyo nga nagserbisyo sa mga residente ug kasikbit nga barangay"
-  data-image="Barangay 20.jpg" />
+      <img src="poblacion.kapatagan.jpg" alt="Barangay 20" class="barangay-logo" 
+      data-name="Poblacion" 
+      data-description="Ang Barangay Poblacion mao ang sentro sa munisipyo sa Kapatagan, Lanao del Norte, ug adunay labing daghang populasyon nga 11,567 sumala sa 2020 Census, nga nagrepresentar sa 18.49% sa tibuok populasyon sa lungsod . Nahimutang kini sa koordinato nga 7.8981°N, 123.7698°E, ug adunay elevation nga 16.3 metros ibabaw sa dagat . Ingon nga administratibong ug komersyal nga hub, ang Poblacion naglangkob sa mga pasilidad sa lokal nga gobyerno, edukasyon, ug negosyo nga nagserbisyo sa mga residente ug kasikbit nga barangay"
+      data-image="Barangay 20.jpg" />
 
-    </div>
-  </div>
-
-  <div id="barangayModal" class="modal">
-    <div class="modal-content">
-      <span class="close">&times;</span>
-      <h2 id="barangayName"></h2>
-      <img id="barangayImage" src="" alt="Barangay Image" />
-      <p id="barangayDescription"></p>
     </div>
   </div>
 
