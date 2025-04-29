@@ -36,7 +36,7 @@
       background: #007bff;
       border-radius: 8px;
       padding: 10px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
       transition: all 0.3s ease;
     }
 
@@ -139,11 +139,11 @@
       width: 100%;
       min-height: 100vh;
       padding: 40px 20px;
-      animation: fadeIn 1.2s ease-out;
+      animation: fadeIn 0.8s ease-out;
     }
 
     @keyframes fadeIn {
-      0% { opacity: 0; transform: translateY(40px); }
+      0% { opacity: 0; transform: translateY(20px); }
       100% { opacity: 1; transform: translateY(0); }
     }
 
@@ -160,140 +160,66 @@
       border-radius: 15px;
       width: 100%;
       backdrop-filter: blur(8px);
-      box-shadow: 0 0 20px rgba(0,0,0,0.6);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
       margin-bottom: 40px;
-      transform: translateY(0);
-      transition: transform 0.5s ease, box-shadow 0.5s ease;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
       position: relative;
-      overflow: hidden;
-      animation: slideIn 1s ease-out;
       border: 1px solid rgba(0, 170, 255, 0.1);
     }
 
-    @keyframes slideIn {
-      0% { transform: translateY(-50px); opacity: 0; }
-      100% { transform: translateY(0); opacity: 1; }
-    }
-
-    .form-container:before {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #00aaff, transparent, #00aaff, transparent);
-      z-index: -1;
-      border-radius: 15px;
-      background-size: 400%;
-      animation: glowingBorder 12s linear infinite;
-    }
-
-    @keyframes glowingBorder {
-      0% { background-position: 0 0; }
-      50% { background-position: 400% 0; }
-      100% { background-position: 0 0; }
-    }
-
     .form-container:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 170, 255, 0.3);
+      transform: translateY(-3px);
+      box-shadow: 0 5px 20px rgba(0, 170, 255, 0.2);
     }
 
     .form-container h2 {
       text-align: center;
       color: #00aaff;
       margin-bottom: 30px;
-      font-size: 36px;
+      font-size: 32px;
       position: relative;
-      text-shadow: 0 0 15px rgba(0, 170, 255, 0.5);
-      animation: pulseText 3s infinite alternate;
-    }
-
-    @keyframes pulseText {
-      0% { text-shadow: 0 0 15px rgba(0, 170, 255, 0.1); }
-      100% { text-shadow: 0 0 25px rgba(0, 170, 255, 0.6); }
     }
 
     .form-container h2:after {
       content: '';
       position: absolute;
       bottom: -10px;
-      left: 0;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, #00aaff, transparent);
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: #00aaff;
       border-radius: 2px;
-      animation: expandLine 1.5s forwards ease-out;
-    }
-
-    @keyframes expandLine {
-      0% { width: 0; left: 50%; }
-      100% { width: 100%; left: 0; }
     }
 
     .input-group {
       margin-bottom: 25px;
       position: relative;
-      opacity: 0;
-      transform: translateX(-10px);
-      animation: fadeInRight 0.8s forwards;
-      animation-delay: calc(var(--index) * 0.2s);
-    }
-
-    @keyframes fadeInRight {
-      0% { opacity: 0; transform: translateX(-10px); }
-      100% { opacity: 1; transform: translateX(0); }
-    }
-
-    .input-group:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 5px;
-      height: 0;
-      background: #00aaff;
-      transition: height 0.3s ease;
-      border-radius: 3px 0 0 3px;
-    }
-
-    .input-group:focus-within:before {
-      height: 100%;
+      transition: transform 0.3s ease;
     }
 
     .input-group input,
     .input-group textarea {
       width: 100%;
-      padding: 20px 25px;
-      border: none;
-      border-radius: 10px;
-      font-size: 18px;
-      background: rgba(255, 255, 255, 0.1);
+      padding: 15px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      font-size: 16px;
+      background: rgba(255, 255, 255, 0.05);
       color: white;
       transition: all 0.3s ease;
-      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
     }
 
     .input-group input:focus,
     .input-group textarea:focus {
-      background: rgba(0, 170, 255, 0.1);
-      box-shadow: 0 0 20px rgba(0, 170, 255, 0.2), inset 0 0 10px rgba(0, 0, 0, 0.2);
+      background: rgba(0, 170, 255, 0.05);
+      border-color: rgba(0, 170, 255, 0.3);
       outline: none;
-      transform: scale(1.02);
     }
 
     .input-group input::placeholder,
     .input-group textarea::placeholder {
-      color: #ccc;
+      color: #bbb;
       font-size: 16px;
-      transition: all 0.3s ease;
-    }
-
-    .input-group input:focus::placeholder,
-    .input-group textarea:focus::placeholder {
-      opacity: 0.5;
-      transform: translateY(-5px);
     }
 
     .input-group .focus-indicator {
@@ -302,7 +228,7 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: linear-gradient(90deg, #00aaff, transparent);
+      background: #00aaff;
       transition: width 0.3s ease;
     }
 
@@ -322,61 +248,29 @@
       background: linear-gradient(45deg, #007bff, #00aaff);
       color: white;
       border: none;
-      padding: 18px 40px;
-      font-size: 20px;
-      border-radius: 10px;
+      padding: 15px 30px;
+      font-size: 18px;
+      border-radius: 8px;
       cursor: pointer;
       transition: all 0.3s ease;
       position: relative;
       overflow: hidden;
-      z-index: 1;
-      box-shadow: 0 4px 15px rgba(0, 123, 255, 0.3);
-      animation: fadeIn 1.2s forwards;
-      animation-delay: 1s;
-      opacity: 0;
+      box-shadow: 0 3px 10px rgba(0, 123, 255, 0.2);
     }
 
-    .submit-btn:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-      transition: 0.5s;
-      z-index: -1;
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
     }
 
-    .submit-btn:after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, #007bff, #00aaff);
-      transition: 0.5s;
-      z-index: -2;
+    .submit-btn:active {
+      transform: translateY(0);
+      box-shadow: 0 2px 5px rgba(0, 123, 255, 0.2);
     }
 
     .submit-btn span {
       position: relative;
       z-index: 1;
-    }
-
-    .submit-btn:hover {
-      transform: scale(1.02) translateY(-3px);
-      box-shadow: 0 8px 25px rgba(0, 123, 255, 0.5);
-    }
-
-    .submit-btn:hover:before {
-      left: 100%;
-    }
-
-    .submit-btn:active {
-      transform: scale(0.98) translateY(0);
-      box-shadow: 0 2px 10px rgba(0, 123, 255, 0.3);
     }
 
     .gif-container {
@@ -385,67 +279,20 @@
       margin: 0 auto;
       overflow: hidden;
       border-radius: 15px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
       position: relative;
-      animation: floatUp 1.5s ease-out;
-      animation-delay: 0.5s;
-      opacity: 0;
-      animation-fill-mode: forwards;
-      transform: perspective(1000px);
-    }
-
-    @keyframes floatUp {
-      0% { transform: translateY(30px) perspective(1000px); opacity: 0; }
-      100% { transform: translateY(0) perspective(1000px); opacity: 1; }
-    }
-
-    .gif-container:before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(0, 170, 255, 0.5) 0%, transparent 100%);
-      z-index: 1;
-      opacity: 0;
-      transition: opacity 0.5s ease;
-      border-radius: 15px;
-    }
-
-    .gif-container:hover:before {
-      opacity: 0.3;
-    }
-
-    .gif-container:after {
-      content: '';
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, #00aaff, transparent, #00aaff, transparent);
-      z-index: -1;
-      border-radius: 15px;
-      background-size: 400%;
-      animation: glowingBorder 12s linear infinite;
     }
 
     .gif-container img {
       width: 100%;
       height: auto;
       display: block;
-      transform: scale(1);
-      transition: transform 0.8s ease;
+      transition: transform 0.5s ease;
       border-radius: 15px;
     }
 
     .gif-container:hover img {
-      transform: scale(1.05);
-    }
-
-    .gif-container:hover {
-      box-shadow: 0 15px 35px rgba(0, 170, 255, 0.3);
+      transform: scale(1.02);
     }
 
     .success-message {
@@ -453,13 +300,13 @@
       top: -100px;
       left: 50%;
       transform: translateX(-50%);
-      background: linear-gradient(45deg, rgba(0, 200, 83, 0.9), rgba(0, 170, 85, 0.9));
+      background: rgba(0, 200, 83, 0.9);
       color: white;
-      padding: 20px 40px;
-      border-radius: 50px;
-      font-size: 18px;
-      box-shadow: 0 5px 25px rgba(0, 200, 83, 0.4);
-      transition: top 0.5s ease, transform 0.5s ease;
+      padding: 15px 30px;
+      border-radius: 30px;
+      font-size: 16px;
+      box-shadow: 0 4px 15px rgba(0, 200, 83, 0.3);
+      transition: top 0.5s ease;
       z-index: 10;
       opacity: 0;
     }
@@ -467,78 +314,46 @@
     .success-message.show {
       top: 30px;
       opacity: 1;
-      animation: pulse 1.5s infinite alternate;
     }
 
-    @keyframes pulse {
-      0% { box-shadow: 0 5px 25px rgba(0, 200, 83, 0.4); }
-      100% { box-shadow: 0 5px 30px rgba(0, 200, 83, 0.8); }
-    }
-
-    /* Floating particles */
-    .particles {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .particle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background-color: rgba(0, 170, 255, 0.2);
-      border-radius: 50%;
-      animation: float 20s infinite linear;
-    }
-
-    @keyframes float {
-      0% { transform: translateY(0) translateX(0); opacity: 0; }
-      10% { opacity: 1; }
-      90% { opacity: 1; }
-      100% { transform: translateY(-1000px) translateX(100px); opacity: 0; }
-    }
-
-     
-    .ripple {
-      position: absolute;
-      background: rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      transform: scale(0);
-      animation: ripple 0.6s linear;
-      pointer-events: none;
-    }
-
-    @keyframes ripple {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    /* Typing animation for the title */
-    .typing-animation {
+    /* Loading spinner */
+    .spinner {
       display: inline-block;
-      position: relative;
+      width: 20px;
+      height: 20px;
+      border: 3px solid rgba(255,255,255,.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 10px;
+      vertical-align: middle;
     }
 
-    .typing-animation::after {
-      content: '';
-      position: absolute;
-      right: -5px;
-      top: 0;
-      height: 100%;
-      width: 2px;
-      background-color: #00aaff;
-      animation: blink 0.8s infinite;
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
 
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
+    .sending-text {
+      display: none;
+    }
+
+    .sending .sending-text {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .sending .normal-text {
+      display: none;
+    }
+
+    .error-message {
+      color: #ff5252;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(255, 82, 82, 0.1);
+      border-radius: 5px;
+      border-left: 4px solid #ff5252;
+      display: none;
     }
 
     @media (max-width: 768px) {
@@ -547,25 +362,23 @@
       }
       
       .form-container h2 {
-        font-size: 28px;
+        font-size: 24px;
       }
       
       .input-group input,
       .input-group textarea {
-        padding: 15px 20px;
-        font-size: 16px;
+        padding: 12px 15px;
+        font-size: 15px;
       }
       
       .submit-btn {
-        padding: 15px 30px;
-        font-size: 18px;
+        padding: 12px 20px;
+        font-size: 16px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
-
   <div class="hamburger" onclick="toggleMenu()">
     <div></div>
     <div></div>
@@ -602,25 +415,31 @@
   <div class="main-container">
     <div class="contact-container">
       <div class="form-container">
-        <h2 class="typing-animation">Contact Us</h2>
+        <h2>Contact Us</h2>
         <form id="contactForm">
-          <div class="input-group" style="--index: 1">
+          <div class="input-group">
             <input type="text" placeholder="Full Name" required id="name" />
             <div class="focus-indicator"></div>
           </div>
-          <div class="input-group" style="--index: 2">
+          <div class="input-group">
             <input type="email" placeholder="Email Address" required id="email" />
             <div class="focus-indicator"></div>
           </div>
-          <div class="input-group" style="--index: 3">
+          <div class="input-group">
             <input type="text" placeholder="Subject" required id="subject" />
             <div class="focus-indicator"></div>
           </div>
-          <div class="input-group" style="--index: 4">
+          <div class="input-group">
             <textarea placeholder="Your Message..." required id="message"></textarea>
             <div class="focus-indicator"></div>
           </div>
-          <button type="submit" class="submit-btn"><span>Send Message</span></button>
+          <div id="errorMessage" class="error-message">
+            
+          </div>
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="normal-text">Send Message</span>
+            <span class="sending-text"><span class="spinner"></span>Sending...</span>
+          </button>
         </form>
       </div>
       
@@ -631,7 +450,6 @@
   </div>
 
   <script>
-    
     function toggleMenu() {
       const menu = document.querySelector('.side-menu');
       const hamburger = document.querySelector('.hamburger');
@@ -640,7 +458,6 @@
       hamburger.classList.toggle('active');
     }
 
-     
     document.addEventListener('click', function(event) {
       const menu = document.querySelector('.side-menu');
       const hamburger = document.querySelector('.hamburger');
@@ -652,162 +469,58 @@
         hamburger.classList.remove('active');
       }
     });
- 
     
-    document.getElementById('contactForm').addEventListener('submit', function(event) {
+    // Form submission handler
+    document.getElementById('contactForm').addEventListener('submit', async function(event) {
       event.preventDefault();
       
-      
-      const successMessage = document.getElementById('successMessage');
-      successMessage.classList.add('show');
-      
-      
       const submitBtn = document.querySelector('.submit-btn');
-      const ripple = document.createElement('span');
-      ripple.classList.add('ripple');
-      ripple.style.left = '50%';
-      ripple.style.top = '50%';
-      submitBtn.appendChild(ripple);
+      submitBtn.classList.add('sending');
+      submitBtn.disabled = true;
       
-      // Reset form with animation
-      const inputGroups = document.querySelectorAll('.input-group');
-      inputGroups.forEach((group, index) => {
-        setTimeout(() => {
-          group.style.transform = 'translateX(20px)';
-          group.style.opacity = '0';
-          setTimeout(() => {
-            group.style.transform = 'translateX(0)';
-            group.style.opacity = '1';
-          }, 300);
-        }, index * 100);
-      });
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      const errorMessage = document.getElementById('errorMessage');
       
       
-      setTimeout(() => {
+      errorMessage.style.display = 'none';
+      
+      try {
+        
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        
+        const successMessage = document.getElementById('successMessage');
+        successMessage.classList.add('show');
+        
+     
         this.reset();
         
         
-        setTimeout(() => {
-          if (ripple && ripple.parentNode) {
-            ripple.parentNode.removeChild(ripple);
-          }
-        }, 600);
-      }, 500);
-      
-      // Hide success message after delay
-      setTimeout(function() {
-        successMessage.classList.remove('show');
-      }, 3000);
+        setTimeout(function() {
+          successMessage.classList.remove('show');
+        }, 3000);
+      } catch (error) {
+        console.error('Form submission error:', error);
+        errorMessage.style.display = 'block';
+      } finally {
+         
+        submitBtn.classList.remove('sending');
+        submitBtn.disabled = false;
+      }
     });
 
-     
+    
     const inputs = document.querySelectorAll('input, textarea');
     inputs.forEach(input => {
       input.addEventListener('focus', function() {
-        this.parentElement.style.transform = 'translateY(-5px)';
-        this.parentElement.style.transition = 'transform 0.3s ease';
-        
-        
-        const ripple = document.createElement('span');
-        ripple.classList.add('ripple');
-        const rect = this.getBoundingClientRect();
-        const x = event.clientX - rect.left;
-        const y = event.clientY - rect.top;
-        ripple.style.left = x + 'px';
-        ripple.style.top = y + 'px';
-        this.parentElement.appendChild(ripple);
-        
-        setTimeout(() => {
-          ripple.remove();
-        }, 600);
+        this.parentElement.style.transform = 'translateY(-2px)';
       });
       
       input.addEventListener('blur', function() {
         this.parentElement.style.transform = 'translateY(0)';
-      });
-    });
-    
-    // Create floating particles
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-       
-        const size = Math.random() * 6 + 2;
-        const posX = Math.random() * window.innerWidth;
-        const posY = Math.random() * window.innerHeight + window.innerHeight;
-        const duration = Math.random() * 30 + 10;
-        const delay = Math.random() * 10;
-        const opacity = Math.random() * 0.3 + 0.1;
-        
-       
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${posX}px`;
-        particle.style.top = `${posY}px`;
-        particle.style.opacity = opacity;
-        particle.style.animation = `float ${duration}s infinite linear`;
-        particle.style.animationDelay = `${delay}s`;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
-    
-    // Typing animation for the title
-    function typeWriter(element, text, speed) {
-      let i = 0;
-      element.innerHTML = '';
-      
-      function type() {
-        if (i < text.length) {
-          element.innerHTML += text.charAt(i);
-          i++;
-          setTimeout(type, speed);
-        } else {
-          element.classList.add('typing-complete');
-        }
-      }
-      
-      type();
-    }
-    
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      createParticles();
-      
-      const titleElement = document.querySelector('h2');
-      const titleText = titleElement.textContent;
-      titleElement.textContent = '';
-      
-      setTimeout(() => {
-        typeWriter(titleElement, titleText, 100);
-      }, 500);
-      
-      // Add staggered animations to input groups
-      const inputGroups = document.querySelectorAll('.input-group');
-      inputGroups.forEach((group, index) => {
-        group.style.setProperty('--index', index + 1);
-      });
-    });
-    
-    // Add focus animations to inputs
-    inputs.forEach(input => {
-      input.addEventListener('focus', function() {
-        const indicator = this.nextElementSibling;
-        if (indicator && indicator.classList.contains('focus-indicator')) {
-          indicator.style.width = '100%';
-        }
-      });
-      
-      input.addEventListener('blur', function() {
-        const indicator = this.nextElementSibling;
-        if (indicator && indicator.classList.contains('focus-indicator')) {
-          indicator.style.width = '0';
-        }
       });
     });
   </script>
