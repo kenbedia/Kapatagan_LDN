@@ -369,10 +369,25 @@
       opacity: 0.5;
       animation: float 15s infinite linear;
     }
+  
+    .error-message {
+      color: #d9534f;
+      font-size: 12px;
+      margin-top: 5px;
+      text-align: left;
+      width: 100%;
+      display: none;
+      animation: fadeIn 0.3s ease-out;
+    }
+    
+    .input-error {
+      border: 1px solid #d9534f;
+      background-color: #fdf7f7;
+    }
   </style>
 </head>
 <body>
-  <!-- Floating particles -->
+
   <div class="particles" id="particles"></div>
 
   <div class="container animate__animated animate__fadeIn" id="container">
@@ -387,6 +402,7 @@
         
         <div class="input-container animate__animated animate__fadeInUp animate__delay-2s">
           <input type="email" id="signupEmail" placeholder="Email" required />
+          <div class="error-message" id="emailError">Email must be a valid Gmail address (example@gmail.com)</div>
         </div>
         
         <div class="input-container animate__animated animate__fadeInUp animate__delay-3s" style="position: relative;">
@@ -394,6 +410,7 @@
           <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
             <i class="fa-solid fa-eye" id="signupPasswordToggle"></i>
           </button>
+          <div class="error-message" id="passwordError">Password must be at least 6 characters long</div>
         </div>
         
         <button type="submit" class="animate__animated animate__fadeInUp animate__delay-4s">Sign Up</button>
@@ -457,7 +474,7 @@
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 10;
         
-        // Apply styles
+    
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         particle.style.left = `${posX}%`;
@@ -481,7 +498,7 @@
       const forms = document.querySelectorAll('form');
       forms.forEach(form => {
         form.classList.remove('animate__fadeIn');
-        void form.offsetWidth; // Trigger reflow
+        void form.offsetWidth;
         form.classList.add('animate__fadeIn');
       });
       
@@ -489,33 +506,81 @@
       const inputs = document.querySelectorAll('input');
       inputs.forEach((input, index) => {
         input.parentElement.classList.remove('animate__fadeInUp');
-        void input.offsetWidth; // Trigger reflow
+        void input.offsetWidth;
         input.parentElement.classList.add('animate__fadeInUp');
         input.parentElement.style.animationDelay = `${(index + 1) * 0.1}s`;
       });
+      
+    
+      clearErrors();
+    }
+    
+ 
+    function validateEmail(email) {
+      const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      return gmailRegex.test(email);
+    }
+    
+ 
+    function validatePassword(password) {
+      return password.length >= 6;
+    }
+    
+  
+    function clearErrors() {
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.style.display = 'none';
+      });
+      
+      document.querySelectorAll('input').forEach(input => {
+        input.classList.remove('input-error');
+      });
+    }
+    
+    function showError(inputId, errorId) {
+      const input = document.getElementById(inputId);
+      const error = document.getElementById(errorId);
+      
+      input.classList.add('input-error');
+      error.style.display = 'block';
     }
 
     
     function handleSignUp(event) {
       event.preventDefault();
       
-      
-      event.target.querySelector('button').classList.add('animate__pulse');
+ 
+      clearErrors();
       
       const name = document.getElementById("signupName").value;
       const email = document.getElementById("signupEmail").value;
       const password = document.getElementById("signupPassword").value;
-
-     
+      
+      let isValid = true;
+      
+      if (!validateEmail(email)) {
+        showError("signupEmail", "emailError");
+        isValid = false;
+      }
+    
+      if (!validatePassword(password)) {
+        showError("signupPassword", "passwordError");
+        isValid = false;
+      }
+    
+      if (!isValid) {
+        return false;
+      }
+      
+  
+      event.target.querySelector('button').classList.add('animate__pulse');
+      
       localStorage.setItem("userEmail", email);
       localStorage.setItem("userPassword", password);
       localStorage.setItem("userName", name);
-
-     
       setTimeout(() => {
         alert("Thank you for sign up Ma'am/Sir, You can now log-in this Webpage.");
         toggleForm();
-        // Reset animation
         event.target.querySelector('button').classList.remove('animate__pulse');
       }, 500);
     }
@@ -535,7 +600,6 @@
 
       setTimeout(() => {
         if (email === savedEmail && password === savedPassword) {
-          // Success animation
           document.querySelector('.container').classList.add('animate__fadeOutUp');
           
           setTimeout(() => {
@@ -587,15 +651,28 @@
       }
     }
 
- 
+   
     document.addEventListener('DOMContentLoaded', function() {
-       
+      const emailInput = document.getElementById('signupEmail');
+      emailInput.addEventListener('input', function() {
+        if (this.value && !validateEmail(this.value)) {
+          showError("signupEmail", "emailError");
+        } else {
+          document.getElementById("signupEmail").classList.remove('input-error');
+          document.getElementById("emailError").style.display = 'none';
+        }
+      });
+      const passwordInput = document.getElementById('signupPassword');
+      passwordInput.addEventListener('input', function() {
+        if (this.value && !validatePassword(this.value)) {
+          showError("signupPassword", "passwordError");
+        } else {
+          document.getElementById("signupPassword").classList.remove('input-error');
+          document.getElementById("passwordError").style.display = 'none';
+        }
+      });
       createParticles();
-      
-      
       document.querySelector('.container').classList.add('animate__fadeIn');
-      
-      
       const styleSheet = document.styleSheets[0];
       styleSheet.insertRule(`
         @keyframes float {
