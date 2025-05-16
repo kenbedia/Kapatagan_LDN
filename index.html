@@ -17,9 +17,9 @@
       font-family: 'Arial', sans-serif;
       background: url(municipality.jpg) no-repeat center center fixed;
       background-size: cover;
-      height: 100vh;
+      min-height: 100vh;
       position: relative;
-      overflow: hidden;
+      overflow-x: hidden;
     }
 
     body::before {
@@ -40,10 +40,10 @@
                   0 10px 10px rgba(0,0,0,0.22);
       position: relative;
       overflow: hidden;
-      width: 768px;
-      max-width: 100%;
+      width: 90%;
+      max-width: 768px;
       min-height: 480px;
-      margin: 60px auto;
+      margin: 20px auto;
       animation: fadeIn 1s ease-out, floatUp 1s ease-out;
     }
 
@@ -63,11 +63,6 @@
       100% { transform: scale(1); }
     }
 
-    @keyframes shimmer {
-      0% { background-position: -400px 0; }
-      100% { background-position: 400px 0; }
-    }
-
     .form-container {
       position: absolute;
       top: 0;
@@ -81,15 +76,15 @@
       z-index: 2;
     }
 
-    .container.right-panel-active .sign-in-container {
-      transform: translateX(100%);
-    }
-
     .sign-up-container {
       left: 0;
       width: 50%;
       opacity: 0;
       z-index: 1;
+    }
+
+    .container.right-panel-active .sign-in-container {
+      transform: translateX(100%);
     }
 
     .container.right-panel-active .sign-up-container {
@@ -108,7 +103,7 @@
       background: #ffffff;
       display: flex;
       flex-direction: column;
-      padding: 0 50px;
+      padding: 0 30px;
       height: 100%;
       justify-content: center;
       align-items: center;
@@ -116,7 +111,7 @@
     }
 
     .form-logo {
-      width: 80px;
+      width: 70px;
       margin-bottom: 15px;
       animation: spin 1s ease-out, pulse 2s infinite ease-in-out;
     }
@@ -167,7 +162,7 @@
 
     button {
       border: none;
-      padding: 12px 45px;
+      padding: 12px 35px;
       background-color: #000000;
       color: white;
       text-transform: uppercase;
@@ -251,7 +246,7 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 0 40px;
+      padding: 0 30px;
       text-align: center;
       height: 100%;
       width: 50%;
@@ -278,6 +273,7 @@
     .overlay h1 {
       font-weight: bold;
       margin: 0;
+      font-size: 24px;
       animation: fadeIn 0.8s ease-out, floatText 4s ease-in-out infinite;
     }
 
@@ -309,6 +305,7 @@
       margin: 0;
       margin-bottom: 10px;
       animation: fadeIn 0.8s ease-out;
+      font-size: 22px;
     }
 
     p {
@@ -329,7 +326,6 @@
       transform: scale(1.05);
     }
 
-  
     .password-toggle {
       background: none;
       border: none;
@@ -351,7 +347,6 @@
     .animate__animated {
       animation-duration: 0.8s;
     }
-
     
     .particles {
       position: fixed;
@@ -384,6 +379,90 @@
       border: 1px solid #d9534f;
       background-color: #fdf7f7;
     }
+    
+    /* Mobile specific styles */
+    @media (max-width: 768px) {
+      .container {
+        min-height: 650px;
+        margin: 10px auto;
+        width: 95%;
+      }
+      
+      .overlay-container {
+        display: none;
+      }
+      
+      .sign-in-container, .sign-up-container {
+        width: 100%;
+      }
+      
+      .mobile-toggle {
+        display: flex;
+        width: 100%;
+        padding: 10px 0;
+        justify-content: center;
+        background-color: #f9f9f9;
+        border-top: 1px solid #eee;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        font-size: 14px;
+      }
+      
+      .mobile-toggle a {
+        color: #000;
+        font-weight: bold;
+      }
+      
+      .container.right-panel-active .sign-in-container {
+        transform: translateX(-100%);
+      }
+      
+      .container.right-panel-active .sign-up-container {
+        transform: translateX(0);
+      }
+      
+      form {
+        padding: 0 20px 60px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      .form-logo {
+        width: 60px;
+      }
+      
+      button {
+        padding: 10px 25px;
+        font-size: 14px;
+      }
+    }
+    
+    @media (max-width: 380px) {
+      .container {
+        min-height: 600px;
+      }
+      
+      h1 {
+        font-size: 18px;
+      }
+      
+      input, button {
+        font-size: 14px;
+      }
+      
+      p {
+        font-size: 12px;
+      }
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0); }
+    }
   </style>
 </head>
 <body>
@@ -415,6 +494,9 @@
         
         <button type="submit" class="animate__animated animate__fadeInUp animate__delay-4s">Sign Up</button>
       </form>
+      <div class="mobile-toggle">
+        Already have an account? <a href="#" onclick="toggleForm()"> Log In</a>
+      </div>
     </div>
 
     <div class="form-container sign-in-container">
@@ -439,6 +521,9 @@
         
         <button type="submit" class="animate__animated animate__fadeInUp animate__delay-4s">Log In</button>
       </form>
+      <div class="mobile-toggle">
+        Don't have an account? <a href="#" onclick="toggleForm()"> Sign Up</a>
+      </div>
     </div>
     
     <div class="overlay-container">
@@ -458,7 +543,6 @@
   </div>
 
   <script>
-    
     function createParticles() {
       const particles = document.getElementById('particles');
       const particleCount = 50;
@@ -467,14 +551,12 @@
         const particle = document.createElement('div');
         particle.className = 'particle';
         
-        
         const size = Math.random() * 5 + 2;
         const posX = Math.random() * 100;
         const posY = Math.random() * 100;
         const duration = Math.random() * 20 + 10;
         const delay = Math.random() * 10;
         
-    
         particle.style.width = `${size}px`;
         particle.style.height = `${size}px`;
         particle.style.left = `${posX}%`;
@@ -487,13 +569,10 @@
       }
     }
 
-    
     const container = document.getElementById('container');
 
-   
     function toggleForm() {
       container.classList.toggle("right-panel-active");
-      
       
       const forms = document.querySelectorAll('form');
       forms.forEach(form => {
@@ -502,7 +581,6 @@
         form.classList.add('animate__fadeIn');
       });
       
-      
       const inputs = document.querySelectorAll('input');
       inputs.forEach((input, index) => {
         input.parentElement.classList.remove('animate__fadeInUp');
@@ -510,23 +588,19 @@
         input.parentElement.classList.add('animate__fadeInUp');
         input.parentElement.style.animationDelay = `${(index + 1) * 0.1}s`;
       });
-      
     
       clearErrors();
     }
     
- 
     function validateEmail(email) {
       const gmailRegex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
       return gmailRegex.test(email);
     }
     
- 
     function validatePassword(password) {
       return password.length >= 6;
     }
     
-  
     function clearErrors() {
       document.querySelectorAll('.error-message').forEach(el => {
         el.style.display = 'none';
@@ -544,12 +618,10 @@
       input.classList.add('input-error');
       error.style.display = 'block';
     }
-
     
     function handleSignUp(event) {
       event.preventDefault();
       
- 
       clearErrors();
       
       const name = document.getElementById("signupName").value;
@@ -572,7 +644,6 @@
         return false;
       }
       
-  
       event.target.querySelector('button').classList.add('animate__pulse');
       
       localStorage.setItem("userEmail", email);
@@ -584,11 +655,9 @@
         event.target.querySelector('button').classList.remove('animate__pulse');
       }, 500);
     }
-
-   
+    
     function handleLogin(event) {
       event.preventDefault();
-      
       
       event.target.querySelector('button').classList.add('animate__pulse');
       
@@ -607,7 +676,6 @@
             window.location.href = "menu.html";
           }, 800);
         } else {
-          
           const form = document.querySelector('.sign-in-container form');
           form.classList.add('animate__shakeX');
           
@@ -617,11 +685,9 @@
           }, 500);
         }
         
-        
         event.target.querySelector('button').classList.remove('animate__pulse');
       }, 500);
     }
-
      
     function forgotPassword() {
       const email = prompt("Enter your email to recover password:");
@@ -634,7 +700,6 @@
         alert("Email not found.");
       }
     }
-
      
     function togglePassword(id) {
       const field = document.getElementById(id);
@@ -650,7 +715,18 @@
         icon.classList.add('fa-eye');
       }
     }
-
+    
+    function checkScreenSize() {
+      if (window.innerWidth <= 768) {
+       
+        if (!container.classList.contains('right-panel-active')) {
+        
+        } else {
+          
+          container.classList.remove('right-panel-active');
+        }
+      }
+    }
    
     document.addEventListener('DOMContentLoaded', function() {
       const emailInput = document.getElementById('signupEmail');
@@ -661,7 +737,7 @@
           document.getElementById("signupEmail").classList.remove('input-error');
           document.getElementById("emailError").style.display = 'none';
         }
-      });
+      }); 
       const passwordInput = document.getElementById('signupPassword');
       passwordInput.addEventListener('input', function() {
         if (this.value && !validatePassword(this.value)) {
@@ -671,8 +747,10 @@
           document.getElementById("passwordError").style.display = 'none';
         }
       });
+      
       createParticles();
       document.querySelector('.container').classList.add('animate__fadeIn');
+      
       const styleSheet = document.styleSheets[0];
       styleSheet.insertRule(`
         @keyframes float {
@@ -681,6 +759,8 @@
           100% { transform: translateY(0); }
         }
       `, styleSheet.cssRules.length);
+      checkScreenSize();
+      window.addEventListener('resize', checkScreenSize);
     });
   </script>
 </body>
