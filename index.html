@@ -157,9 +157,6 @@
       color: #aaa;
     }
 
-    input:nth-child(2) { animation-delay: 0.15s; }
-    input:nth-child(3) { animation-delay: 0.3s; }
-
     button {
       border: none;
       padding: 12px 35px;
@@ -173,7 +170,6 @@
       position: relative;
       overflow: hidden;
       animation: fadeIn 0.8s ease-out;
-      animation-delay: 0.5s;
       animation-fill-mode: both;
     }
 
@@ -286,7 +282,6 @@
       font-size: 14px;
       margin: 15px 0 20px;
       animation: fadeIn 1s ease-out;
-      animation-delay: 0.2s;
       animation-fill-mode: both;
     }
 
@@ -473,18 +468,18 @@
     <div class="form-container sign-up-container">
       <form onsubmit="return handleSignUp(event)" class="animate__animated animate__fadeIn">
         <img src="logo.png" class="form-logo" alt="Logo" />
-        <h1 class="animate__animated animate__fadeInDown">Create Account</h1>
+        <h1 class="animate__animated animate__fadeIn">Create Account</h1>
         
-        <div class="input-container animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="input-container animate__animated animate__fadeIn">
           <input type="text" id="signupName" placeholder="Name" maxlength="20" required />
         </div>
         
-        <div class="input-container animate__animated animate__fadeInUp animate__delay-2s">
+        <div class="input-container animate__animated animate__fadeIn">
           <input type="email" id="signupEmail" placeholder="Email" required />
           <div class="error-message" id="emailError">Email must be a valid Gmail address (example@gmail.com)</div>
         </div>
         
-        <div class="input-container animate__animated animate__fadeInUp animate__delay-3s" style="position: relative;">
+        <div class="input-container animate__animated animate__fadeIn" style="position: relative;">
           <input type="password" id="signupPassword" placeholder="Password" maxlength="20" required />
           <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
             <i class="fa-solid fa-eye" id="signupPasswordToggle"></i>
@@ -492,7 +487,7 @@
           <div class="error-message" id="passwordError">Password must be at least 6 characters long</div>
         </div>
         
-        <button type="submit" class="animate__animated animate__fadeInUp animate__delay-4s">Sign Up</button>
+        <button type="submit" class="animate__animated animate__fadeIn">Sign Up</button>
       </form>
       <div class="mobile-toggle">
         Already have an account? <a href="#" onclick="toggleForm()"> Log In</a>
@@ -502,24 +497,24 @@
     <div class="form-container sign-in-container">
       <form onsubmit="return handleLogin(event)" class="animate__animated animate__fadeIn">
         <img src="logo.png" class="form-logo" alt="Logo" />
-        <h1 class="animate__animated animate__fadeInDown">Log In</h1>
+        <h1 class="animate__animated animate__fadeIn">Log In</h1>
         
-        <div class="input-container animate__animated animate__fadeInUp animate__delay-1s">
+        <div class="input-container animate__animated animate__fadeIn">
           <input type="email" id="loginEmail" placeholder="Email" required />
         </div>
         
-        <div class="input-container animate__animated animate__fadeInUp animate__delay-2s" style="position: relative;">
+        <div class="input-container animate__animated animate__fadeIn" style="position: relative;">
           <input type="password" id="loginPassword" placeholder="Password" maxlength="20" required />
           <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
             <i class="fa-solid fa-eye" id="loginPasswordToggle"></i>
           </button>
         </div>
         
-        <div style="display: flex; justify-content: flex-start; width: 100%; margin: 8px 0;" class="animate__animated animate__fadeInUp animate__delay-3s">
+        <div style="display: flex; justify-content: flex-start; width: 100%; margin: 8px 0;" class="animate__animated animate__fadeIn">
           <a href="#" onclick="forgotPassword()">Forgot your password?</a>
         </div>
         
-        <button type="submit" class="animate__animated animate__fadeInUp animate__delay-4s">Log In</button>
+        <button type="submit" class="animate__animated animate__fadeIn">Log In</button>
       </form>
       <div class="mobile-toggle">
         Don't have an account? <a href="#" onclick="toggleForm()"> Sign Up</a>
@@ -529,14 +524,14 @@
     <div class="overlay-container">
       <div class="overlay">
         <div class="overlay-panel overlay-left">
-          <h1 class="animate__animated animate__fadeInDown">Ma'am and Sir</h1>
-          <p class="animate__animated animate__fadeIn animate__delay-1s">If you are already signed up, you will automatically be returned to log-in.</p>
-          <button class="ghost animate__animated animate__fadeIn animate__delay-2s" onclick="toggleForm()">Log In</button>
+          <h1 class="animate__animated animate__fadeIn">Ma'am and Sir</h1>
+          <p class="animate__animated animate__fadeIn">If you are already signed up, you will automatically be returned to log-in.</p>
+          <button class="ghost animate__animated animate__fadeIn" onclick="toggleForm()">Log In</button>
         </div>
         <div class="overlay-panel overlay-right">
-          <h1 class="animate__animated animate__fadeInDown">Sign up first, Ma'am/Sir.</h1>
-          <p class="animate__animated animate__fadeIn animate__delay-1s">If you haven't signed up on this Webpage yet, please Sign up.</p>
-          <button class="ghost animate__animated animate__fadeIn animate__delay-2s" onclick="toggleForm()">Sign Up</button>
+          <h1 class="animate__animated animate__fadeIn">Sign up first, Ma'am/Sir.</h1>
+          <p class="animate__animated animate__fadeIn">If you haven't signed up on this Webpage yet, please Sign up.</p>
+          <button class="ghost animate__animated animate__fadeIn" onclick="toggleForm()">Sign Up</button>
         </div>
       </div>
     </div>
@@ -581,12 +576,11 @@
         form.classList.add('animate__fadeIn');
       });
       
-      const inputs = document.querySelectorAll('input');
-      inputs.forEach((input, index) => {
-        input.parentElement.classList.remove('animate__fadeInUp');
+      const inputs = document.querySelectorAll('.input-container');
+      inputs.forEach(input => {
+        input.classList.remove('animate__fadeIn');
         void input.offsetWidth;
-        input.parentElement.classList.add('animate__fadeInUp');
-        input.parentElement.style.animationDelay = `${(index + 1) * 0.1}s`;
+        input.classList.add('animate__fadeIn');
       });
     
       clearErrors();
@@ -718,11 +712,7 @@
     
     function checkScreenSize() {
       if (window.innerWidth <= 768) {
-       
-        if (!container.classList.contains('right-panel-active')) {
-        
-        } else {
-          
+        if (container.classList.contains('right-panel-active')) {
           container.classList.remove('right-panel-active');
         }
       }
@@ -738,6 +728,7 @@
           document.getElementById("emailError").style.display = 'none';
         }
       }); 
+      
       const passwordInput = document.getElementById('signupPassword');
       passwordInput.addEventListener('input', function() {
         if (this.value && !validatePassword(this.value)) {
@@ -747,10 +738,8 @@
           document.getElementById("passwordError").style.display = 'none';
         }
       });
-      
       createParticles();
       document.querySelector('.container').classList.add('animate__fadeIn');
-      
       const styleSheet = document.styleSheets[0];
       styleSheet.insertRule(`
         @keyframes float {
@@ -759,6 +748,7 @@
           100% { transform: translateY(0); }
         }
       `, styleSheet.cssRules.length);
+      
       checkScreenSize();
       window.addEventListener('resize', checkScreenSize);
     });
