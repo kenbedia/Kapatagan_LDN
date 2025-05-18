@@ -111,7 +111,7 @@
     }
 
     .form-logo {
-      width: 70px;
+      width: 100px;
       margin-bottom: 15px;
       animation: spin 1s ease-out, pulse 2s infinite ease-in-out;
     }
@@ -375,7 +375,7 @@
       background-color: #fdf7f7;
     }
     
-    /* Mobile specific styles */
+   
     @media (max-width: 768px) {
       .container {
         min-height: 650px;
@@ -426,7 +426,7 @@
       }
       
       .form-logo {
-        width: 60px;
+        width: 80px; 
       }
       
       button {
@@ -480,7 +480,7 @@
         </div>
         
         <div class="input-container animate__animated animate__fadeIn" style="position: relative;">
-          <input type="password" id="signupPassword" placeholder="Password" maxlength="20" required />
+          <input type="password" id="signupPassword" placeholder="Password" minlength="6" maxlength="20" required />
           <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')">
             <i class="fa-solid fa-eye" id="signupPasswordToggle"></i>
           </button>
@@ -504,10 +504,11 @@
         </div>
         
         <div class="input-container animate__animated animate__fadeIn" style="position: relative;">
-          <input type="password" id="loginPassword" placeholder="Password" maxlength="20" required />
+          <input type="password" id="loginPassword" placeholder="Password" minlength="6" maxlength="20" required />
           <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
             <i class="fa-solid fa-eye" id="loginPasswordToggle"></i>
           </button>
+          <div class="error-message" id="loginPasswordError">Password must be at least 6 characters long</div>
         </div>
         
         <div style="display: flex; justify-content: flex-start; width: 100%; margin: 8px 0;" class="animate__animated animate__fadeIn">
@@ -565,6 +566,12 @@
     }
 
     const container = document.getElementById('container');
+    function fillEmailFromStorage() {
+      const savedEmail = localStorage.getItem("userEmail");
+      if (savedEmail) {
+        document.getElementById("loginEmail").value = savedEmail;
+      }
+    }
 
     function toggleForm() {
       container.classList.toggle("right-panel-active");
@@ -584,6 +591,10 @@
       });
     
       clearErrors();
+      
+      if (!container.classList.contains("right-panel-active")) {
+        fillEmailFromStorage();
+      }
     }
     
     function validateEmail(email) {
@@ -653,13 +664,21 @@
     function handleLogin(event) {
       event.preventDefault();
       
-      event.target.querySelector('button').classList.add('animate__pulse');
+      clearErrors();
       
       const email = document.getElementById("loginEmail").value;
       const password = document.getElementById("loginPassword").value;
+      
+ 
+      if (!validatePassword(password)) {
+        showError("loginPassword", "loginPasswordError");
+        return false;
+      }
 
       const savedEmail = localStorage.getItem("userEmail");
       const savedPassword = localStorage.getItem("userPassword");
+      
+      event.target.querySelector('button').classList.add('animate__pulse');
 
       setTimeout(() => {
         if (email === savedEmail && password === savedPassword) {
@@ -738,6 +757,17 @@
           document.getElementById("passwordError").style.display = 'none';
         }
       });
+      
+      const loginPasswordInput = document.getElementById('loginPassword');
+      loginPasswordInput.addEventListener('input', function() {
+        if (this.value && !validatePassword(this.value)) {
+          showError("loginPassword", "loginPasswordError");
+        } else {
+          document.getElementById("loginPassword").classList.remove('input-error');
+          document.getElementById("loginPasswordError").style.display = 'none';
+        }
+      });
+      
       createParticles();
       document.querySelector('.container').classList.add('animate__fadeIn');
       const styleSheet = document.styleSheets[0];
@@ -748,6 +778,7 @@
           100% { transform: translateY(0); }
         }
       `, styleSheet.cssRules.length);
+      fillEmailFromStorage();
       
       checkScreenSize();
       window.addEventListener('resize', checkScreenSize);
